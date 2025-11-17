@@ -1,0 +1,20 @@
+/* ==========================
+   GRAIN'S MART - Main CSS
+   Imports all modular CSS files
+========================== */
+
+/* For now, importing the original style.css */
+/* In the future, this should import:
+   - base.css (general styles)
+   - header.css (header and navigation)
+   - home.css (home section)
+   - categories.css (categories)
+   - products.css (products)
+   - cart.css (cart section)
+   - profile.css (profile section)
+   - modals.css (modals and popups)
+   - toast.css (notifications)
+   - chatbot.css (chatbot widget)
+*/
+
+@import url('../style.css');

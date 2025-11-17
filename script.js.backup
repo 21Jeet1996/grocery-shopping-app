@@ -435,7 +435,6 @@ function showCategoryProducts(category) {
       productDiv.innerHTML = `
         <div class="product-image-container">
           ${badge ? `<div class="product-badge ${badge.class}">${badge.text}</div>` : ''}
-          <button class="product-wishlist-btn" onclick="event.stopPropagation();">♡</button>
           <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='${placeholderImg}'">
         </div>
         <div class="product-content">
@@ -2058,7 +2057,6 @@ function renderAllProducts() {
     productDiv.innerHTML = `
       <div class="product-image-container">
         ${badge ? `<div class="product-badge ${badge.class}">${badge.text}</div>` : ''}
-        <button class="product-wishlist-btn" onclick="event.stopPropagation();">♡</button>
         <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='${placeholderImg}'">
       </div>
       <div class="product-content">

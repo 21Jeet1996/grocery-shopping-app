@@ -1,67 +1,224 @@
-GRAIN'S MART - Grocery E-commerce Platform Overview GRAIN'S MART is a modern, client-side grocery e-commerce web application built with vanilla JavaScript, HTML, and CSS. The application provides a complete shopping experience including product browsing, cart management, user authentication, order tracking, and promotional offers. It operates entirely in the browser using localStorage for data persistence, with product data loaded from a static JSON file.
+# GRAIN'S MART - Grocery Shopping Web Application
 
-Recent Changes (November 2025) Comprehensive UI/UX & Accessibility Overhaul WCAG AA Color Compliance: Implemented comprehensive color palette update ensuring all text/background combinations meet WCAG AA standards (≥4.5:1 contrast ratio)
+## Overview
+A modern, feature-rich grocery shopping web application built with vanilla JavaScript, HTML, and CSS. The application provides a seamless shopping experience with product browsing, cart management, user authentication, and order tracking.
 
-Primary buttons: #BF360C with #A52A0A hover state (5.1:1 → 5.8:1 contrast)
-Purple gradients: #4A5FC1 → #5A3A87 throughout header, cards, and sections
-Footer: Dark background (#1a1a1a) with amber links (#FFB74D)
-Removed all legacy non-compliant colors (#667eea, #764ba2, #ff9800)
-Mobile-First Responsive Grid System: Implemented pure min-width cascading media queries with progressive column sizing
+## Project Status
+**Last Updated:** November 17, 2025  
+**Status:** Refactored into modular architecture  
+**Current State:** Fully functional with improved code organization
 
-Base (mobile): minmax(150px, 1fr) with 12px gap
-@media (min-width: 480px): 160px columns, 14px gap
-@media (min-width: 600px): 180px columns, 16px gap
-@media (min-width: 768px): 220px columns, 20px gap
-@media (min-width: 1024px): 240px columns, 22px gap
-@media (min-width: 1400px): 260px columns, 24px gap
-Applied to both .products and .category-container grids
-Removed conflicting range-based (min+max) media queries
-Professional UI Enhancements:
+## Recent Changes (Nov 17, 2025)
+### Major Refactoring: Monolithic to Modular Architecture
+- **JavaScript Modularization**: Split 2089 lines of JavaScript into 11 feature-based modules
+- **CSS Organization**: Created modular CSS entry point for future component-based styling
+- **Improved Maintainability**: Code is now organized by feature, making it easier to find and update functionality
 
-Modern card layouts with subtle shadows and hover effects
-Improved spacing and typography hierarchy
-Enhanced search bar with better mobile responsiveness
-Optimized profile page with responsive tabs and wallet/payment cards
-Professional category navigation with accessible icons
-Improved offers grid with better visual hierarchy
-Product Images: Replaced Unsplash placeholder URLs with 36 high-quality stock images stored locally in assets/images/products/ Category Images: Updated all 9 category images with professional stock photography User Preferences Preferred communication style: Simple, everyday language.
+## Project Architecture
 
-System Architecture Frontend Architecture Technology Stack: Vanilla JavaScript (ES6+), HTML5, CSS3
+### Directory Structure
+```
+/
+├── index.html              # Main HTML file
+├── style.css              # Main CSS file (to be split into modules)
+├── server.py              # Python HTTP server
+├── data/
+│   └── products.json      # Product database
+├── assets/
+│   └── images/           # Product category images
+├── js/                    # JavaScript modules (NEW)
+│   ├── main.js           # Application initialization
+│   ├── utils.js          # Utility functions (DOM helpers, toast, etc.)
+│   ├── cart.js           # Cart management
+│   ├── products.js       # Product loading and display
+│   ├── categories.js     # Category management
+│   ├── search.js         # Search and autocomplete
+│   ├── auth.js           # Authentication (login/signup)
+│   ├── profile.js        # User profile management
+│   ├── offers.js         # Offers and promotions
+│   ├── payment.js        # Payment processing
+│   └── chatbot.js        # Chatbot functionality
+└── css/                   # CSS modules (NEW)
+    └── main.css          # CSS entry point (imports style.css)
+```
 
-Problem: Need for a responsive, interactive shopping experience without framework overhead Solution: Pure JavaScript implementation with modern ES6+ features and DOM manipulation Rationale: Simplicity, no build process, fast loading, easy deployment on static hosts State Management: Browser localStorage
+## Code Organization
 
-Problem: Need to persist cart, user sessions, and order data across page reloads Solution: localStorage-based persistence layer for cart items, user profiles, authentication tokens, and order history Trade-off: Data limited to single browser/device, but suitable for prototype/demo purposes UI/UX Design: Custom CSS with gradient themes
+### JavaScript Modules
 
-Inspiration: Amazon and Flipkart e-commerce patterns Approach: Mobile-first responsive design with sticky header, search autocomplete, and category browsing Styling: 5600+ lines of custom CSS with modern gradients and transitions Data Architecture Product Catalog: Static JSON file (data/products.json)
+#### 1. **main.js** - Application Bootstrap
+- Initializes the application on page load
+- Sets up event listeners
+- Coordinates all other modules
 
-Structure: Array of 65+ products across 9 categories (Fruits, Vegetables, Dairy, Atta, Soap, Biscuit, Cold Drink, Pulses, Chocolate) Product Schema: name, category, price, img, searchCount, rating Image Strategy: High-quality stock images stored in assets/images/products/ for all products and categories Cache Busting: Query parameter versioning to prevent stale data Image Assets: 36 professional stock photos for authentic product representation User Data Model: localStorage-based schemas
+#### 2. **utils.js** - Shared Utilities
+- DOM helper functions (`$` and `$$`)
+- Toast notification system
+- Image error handling
+- Navigation helpers
+- Mobile menu toggle
 
-Authentication: User credentials, session tokens Cart: Product IDs, quantities, timestamps Orders: Order history with status tracking Profile: Delivery addresses, payment methods, wallet balance Core Features Shopping Cart System
+#### 3. **cart.js** - Shopping Cart
+- Add/remove items from cart
+- Quantity management
+- Cart total calculation
+- Discount application
+- Mini cart bar updates
+- Local storage persistence
 
-Persistence: localStorage with JSON serialization Features: Add/remove items, quantity controls, offer code application Promo Codes: FRUIT50, DRINK3, DAIRY20 with category-specific discounts Cart Counter: Real-time badge updates in navigation Authentication System
+#### 4. **products.js** - Product Management
+- Load products from JSON
+- Product display and rendering
+- Product detail modal
+- Product badges (Best Seller, Premium, Offer)
+- Star ratings generation
+- Category-specific product filtering
 
-Implementation: Client-side validation with localStorage session management Security Note: Demo-level security only - credentials stored in localStorage Session Management: Login state persists across page refreshes Search & Discovery
+#### 5. **categories.js** - Category Management
+- Load and display categories
+- Category product filtering
+- Category navigation
+- Product count per category
 
-Search: Real-time filtering with autocomplete across product names and categories Category Navigation: 9 predefined categories with visual icons Product Display: Grid layout with responsive breakpoints Order Management
+#### 6. **search.js** - Search Functionality
+- Real-time product search
+- Autocomplete dropdown
+- Keyboard navigation (arrow keys, enter, escape)
+- Search suggestions
 
-Order Creation: Cart checkout with address and payment selection Order Tracking: Current orders with status updates Order History: Past orders accessible from user profile Server Architecture HTTP Server: Python SimpleHTTPServer
+#### 7. **auth.js** - User Authentication
+- Login/signup modals
+- User credential management
+- Password reset
+- Session management
+- Guest mode support
 
-Purpose: Serve static files and enable CORS for local development Configuration: Port 5000, no-cache headers for development Alternative Options: Node.js http-server, Python 3 built-in server Production Note: Any static file host (GitHub Pages, Netlify, Vercel) can serve this application File Structure:
+#### 8. **profile.js** - User Profile
+- Profile information management
+- Order history
+- Current orders tracking
+- Wallet management
+- Address management
+- Delivery preferences
 
-├── index.html # Main entry point ├── style.css # Complete styling (5600+ lines) ├── script.js # Application logic (1900+ lines) ├── server.py # Development server ├── data/ │ └── products.json # Product catalog └── assets/ └── images/ # Category and product images
+#### 9. **offers.js** - Promotions
+- Apply promotional codes
+- Discount calculation
+- Special offers display
+- Offer validation
 
-External Dependencies Third-Party Services None: Application runs completely standalone without external API calls or third-party services.
+#### 10. **payment.js** - Payment Processing
+- Multiple payment methods (UPI, Card, Net Banking, Wallet, COD)
+- Payment form validation
+- Order completion
+- Payment flow management
 
-Assets & Resources Product Images: Local image files stored in assets/images/products/
+#### 11. **chatbot.js** - Customer Support
+- Chat interface
+- Automated responses
+- Common queries handling
+- Support system integration
 
-Category-specific default images used as fallbacks Image naming convention includes content hash for uniqueness Category Icons: SVG files in assets/images/ directory
+## Features
 
-Icons for: fruits, vegetables, dairy, atta, soap, biscuit, cold-drink, pulses, chocolate Browser APIs localStorage: Primary data persistence mechanism
+### User Features
+- 🛒 **Shopping Cart**: Add/remove items, update quantities
+- 🔍 **Smart Search**: Real-time search with autocomplete
+- 👤 **User Accounts**: Login/signup with profile management
+- 💳 **Multiple Payment Options**: UPI, Cards, Net Banking, Wallets, COD
+- 📦 **Order Tracking**: Track current and past orders
+- 💰 **Wallet**: Digital wallet for faster checkout
+- 🎁 **Offers**: Promotional codes and discounts
+- 📍 **Address Management**: Save multiple delivery addresses
+- 💬 **Chatbot**: Customer support assistant
 
-Used for: cart data, user authentication, orders, profile information Limitation: ~5-10MB storage limit per domain Fetch API: Loading product catalog from JSON file
+### Technical Features
+- ✅ **Modular Architecture**: Organized into feature-based modules
+- ✅ **No Framework Dependencies**: Pure vanilla JavaScript
+- ✅ **Local Storage**: Persistent cart and user data
+- ✅ **Responsive Design**: Mobile-friendly interface
+- ✅ **Cache Control**: No-cache headers for development
 
-Cache control headers to prevent stale data Error handling for file protocol limitations Development Tools Python 3: Development server via http.server module
+## Data Management
 
-No external Python packages required Simple static file serving with CORS support Alternative Servers: Node.js (http-server), any static file server
+### Products (data/products.json)
+- 65 products across 9 categories
+- Categories: Fruits, Vegetables, Dairy, Atta, Soap, Biscuit, Cold Drink, Pulses, Chocolate
+- Each product includes: name, price, category, rating, searchCount
 
-Application is server-agnostic for production deployment
+### Local Storage Keys
+- `gm_cart` - Shopping cart items
+- `gm_users` - User credentials
+- `currentUser` - Active user session
+- `profile_{username}` - User profile data
+- `addresses_{username}` - Saved addresses
+- `currentOrders_{username}` - Active orders
+- `orderHistory_{username}` - Completed orders
+- `walletBalance_{username}` - Wallet balance
+- `walletTransactions_{username}` - Transaction history
+- `activeOffer` - Applied promotional code
+- `delivery_slot` - Selected delivery time slot
+- `currentAddress` - Current delivery address
+
+## Development
+
+### Running the Server
+```bash
+python3 server.py
+```
+Server runs on: http://0.0.0.0:5000/
+
+### File Loading Order (index.html)
+1. style.css
+2. js/utils.js (must load first - provides $ and $$)
+3. js/cart.js
+4. js/products.js
+5. js/categories.js
+6. js/search.js
+7. js/auth.js
+8. js/profile.js
+9. js/offers.js
+10. js/payment.js
+11. js/chatbot.js
+12. js/main.js (loads last - initializes app)
+
+### Adding New Features
+1. Create a new .js file in the `js/` directory
+2. Add the script tag to index.html in the appropriate order
+3. Follow existing module patterns
+4. Update this documentation
+
+## Future Enhancements
+
+### Planned CSS Refactoring
+The CSS file (6332 lines) should be split into:
+- `css/base.css` - Reset and general styles
+- `css/header.css` - Header and navigation
+- `css/home.css` - Home section
+- `css/categories.css` - Category styles
+- `css/products.css` - Product cards
+- `css/cart.css` - Cart section
+- `css/profile.css` - Profile page
+- `css/modals.css` - Modal dialogs
+- `css/toast.css` - Notifications
+- `css/chatbot.css` - Chatbot widget
+- `css/footer.css` - Footer styles
+- `css/responsive.css` - Media queries
+
+### Other Improvements
+- [ ] Split CSS into component files
+- [ ] Add product reviews functionality
+- [ ] Implement wishlist feature
+- [ ] Add order cancellation
+- [ ] Enhance chatbot with AI integration
+- [ ] Add admin panel for product management
+- [ ] Implement real payment gateway integration
+- [ ] Add email notifications
+- [ ] Create mobile app version
+
+## Notes
+- The application uses vanilla JavaScript - no frameworks required
+- All data is stored in browser local storage (not production-ready)
+- Server is configured with no-cache headers for development
+- Product images are SVG placeholders from assets/images/
+- The refactoring maintains 100% backward compatibility
