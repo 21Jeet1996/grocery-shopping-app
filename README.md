@@ -30,17 +30,13 @@ Simply click the Run button The server starts automatically on port 5000 Access 
 
 🔧 Tech Stack Frontend: Vanilla JavaScript (ES6+) Styling: Custom CSS with modern design patterns Data: JSON-based product catalog Storage: localStorage for cart and user data Server: Python SimpleHTTPServer (development) 📱 Browser Support ✅ Chrome (recommended) ✅ Firefox ✅ Safari ✅ Edge ✅ Mobile browsers (iOS Safari, Chrome Mobile) 🔄 Pushing Changes to GitHub After making changes to the code:
 
-Check status
-git status
+Check status git status
 
-Add all changes
-git add .
+Add all changes git add .
 
-Commit with a message
-git commit -m "Updated UI with modern design"
+Commit with a message git commit -m "Updated UI with modern design"
 
-Push to GitHub
-git push origin main
+Push to GitHub git push origin main
 
 📦 Categories & Products Fruits (9 items): Apple, Banana, Orange, Mango, Grapes, etc. Vegetables (12 items): Potato, Tomato, Onion, Carrot, etc. Dairy (6 items): Milk, Paneer, Butter, Cheese, etc. Atta (6 items): Wheat Flour, Rice Flour, Maida, etc. Soap (5 items): Lifebuoy, Dettol, Dove, Lux, Pears Biscuits (6 items): Good Day, Parle-G, Oreo, Bourbon, etc. Cold Drinks (10 items): Thums Up, Pepsi, Coca-Cola, etc. Pulses (6 items): Toor Dal, Moong Dal, Chana Dal, etc. Chocolates (5 items): Dairy Milk, KitKat, 5 Star, etc. 🎯 Key Functionality Cart Management: Add/remove items, update quantities User Authentication: Signup/login with email validation Order Tracking: Real-time order status updates Profile Management: Addresses, payment methods, wallet Search: Autocomplete product search Responsive Design: Works on all devices 📄 License MIT License - feel free to use this project for your own purposes!
 
