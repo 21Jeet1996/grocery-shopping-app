@@ -305,18 +305,23 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 #home h2 {
-  font-size: 40px;
+  font-size: 48px;
   margin: 10px 0;
+  font-weight: 700;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: -0.5px;
 }
 
 #home p {
-  font-size: 18px;
+  font-size: 20px;
   max-width: 600px;
   margin: 0 auto;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  line-height: 1.6;
 }
 
 #home .btn {
@@ -756,21 +761,24 @@ header {
 
 .btn,
 button {
-  background: #fbc02d; /* yellow */
-  color: #1b5e20; /* dark green text */
-  padding: 0.5em 1em;
+  background: #ff9800;
+  color: white;
+  padding: 0.7em 1.5em;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 1em;
-  transition: background 0.3s;
-  font-weight: bold;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
 }
 
 .btn:hover,
 button:hover {
-  background: #f9a825;
-  color: white;
+  background: #f57c00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
 }
 
 
