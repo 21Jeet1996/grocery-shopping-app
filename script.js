@@ -336,26 +336,64 @@ function loadTopProducts() {
     const productDiv = document.createElement('div');
     productDiv.className = 'product product-view-only';
     productDiv.setAttribute('data-category', product.category);
+    
+    const unit = getProductUnit(product.category);
+    const badge = getProductBadge(product);
+    const placeholderImg = createPlaceholderSVG(product.name, 260, 240);
+    
     productDiv.innerHTML = `
-      <img src="${getProductImage(product)}" alt="${product.name}" onerror="handleImageError(this, '${product.name}')">
-      <h3>${product.name}</h3>
-      <p>₹${product.price} / ${product.category === 'fruits' ? 'kg' : product.category === 'cold drink' ? 'bottle' : 'piece'}</p>
-      <div class="rating">⭐ ${product.rating || 4.0}</div>
-      <p class="view-only-text">Click to view details</p>
+      <div class="product-image-container">
+        ${badge ? `<div class="product-badge ${badge.class}">${badge.text}</div>` : ''}
+        <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='${placeholderImg}'">
+      </div>
+      <div class="product-content">
+        <h3>${product.name}</h3>
+        <div class="product-rating">
+          <span class="rating-stars">${generateStars(product.rating || 4.0)}</span>
+          <span class="rating-count">(${Math.floor(Math.random() * 500 + 100)})</span>
+        </div>
+        <div class="product-price-row">
+          <span class="product-price">₹${product.price}</span>
+        </div>
+        <p class="view-only-text">Click to view details</p>
+      </div>
     `;
     productDiv.addEventListener('click', () => {
-      // Navigate to categories and show this product's category
       showCategoryProducts(product.category);
-      // Scroll to categories section
       document.querySelector('#categories').scrollIntoView({ behavior: 'smooth' });
     });
     homeProducts.appendChild(productDiv);
   });
 }
 
+function getProductUnit(category) {
+  const units = {
+    'fruits': 'kg',
+    'vegetables': 'kg',
+    'cold drink': 'bottle',
+    'dairy': 'pack',
+    'pulses': 'kg'
+  };
+  return units[category?.toLowerCase()] || 'piece';
+}
+
+function getProductBadge(product) {
+  if (product.searchCount > 180) return { text: 'Best Seller', class: 'bestseller' };
+  if (product.price > 300) return { text: 'Premium', class: 'offer' };
+  if (Math.random() > 0.7) return { text: 'Offer', class: 'new' };
+  return null;
+}
+
+function generateStars(rating) {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating % 1 >= 0.5;
+  let stars = '★'.repeat(fullStars);
+  if (hasHalf) stars += '☆';
+  return stars;
+}
+
 // ---------- SHOW CATEGORY PRODUCTS ----------
 function showCategoryProducts(category) {
-  // First navigate to categories section
   const categoriesSection = $('#categories');
   if (categoriesSection) {
     categoriesSection.style.display = 'block';
@@ -369,15 +407,12 @@ function showCategoryProducts(category) {
   
   if (!categoryProductsSection || !categoryProductsList) return;
   
-  // Hide category grid, show products
   if (categoryContainer) categoryContainer.style.display = 'none';
   categoryProductsSection.style.display = 'block';
   
-  // Set title
   const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
   if (categoryProductsTitle) categoryProductsTitle.textContent = categoryName;
   
-  // Filter and display products
   const categoryProducts = allProducts.filter(p => 
     p.category.toLowerCase() === category.toLowerCase()
   );
@@ -390,21 +425,46 @@ function showCategoryProducts(category) {
       const productDiv = document.createElement('div');
       productDiv.className = 'product';
       productDiv.setAttribute('data-category', product.category);
+      
+      const unit = getProductUnit(product.category);
+      const badge = getProductBadge(product);
+      const placeholderImg = createPlaceholderSVG(product.name, 260, 240);
+      const originalPrice = Math.floor(product.price * 1.2);
+      const discount = Math.floor(((originalPrice - product.price) / originalPrice) * 100);
+      
       productDiv.innerHTML = `
-        <img src="${getProductImage(product)}" alt="${product.name}" onerror="handleImageError(this, '${product.name}')">
-        <h3>${product.name}</h3>
-        <p>₹${product.price} / ${product.category === 'fruits' ? 'kg' : product.category === 'cold drink' ? 'bottle' : 'piece'}</p>
-        <div class="rating">⭐ ${product.rating || 4.0}</div>
-        <div class="product-actions-overlay">
-          <button class="overlay-btn add" onclick="addToCart('${product.name}')">Add to Cart</button>
-          <button class="overlay-btn desc" onclick="openProductDetail('${product.name}')">Check Description</button>
+        <div class="product-image-container">
+          ${badge ? `<div class="product-badge ${badge.class}">${badge.text}</div>` : ''}
+          <button class="product-wishlist-btn" onclick="event.stopPropagation();">♡</button>
+          <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='${placeholderImg}'">
+        </div>
+        <div class="product-content">
+          <h3>${product.name}</h3>
+          <div class="product-unit">${unit}</div>
+          <div class="product-rating">
+            <span class="rating-stars">${generateStars(product.rating || 4.0)}</span>
+            <span class="rating-count">(${Math.floor(Math.random() * 500 + 100)})</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">₹${product.price}</span>
+            ${discount > 0 ? `<span class="product-original-price">₹${originalPrice}</span>` : ''}
+            ${discount > 0 ? `<span class="product-discount">${discount}% off</span>` : ''}
+          </div>
+          <div class="product-delivery">🚚 Free delivery on orders above ₹500</div>
+          <div class="product-actions">
+            <button class="product-add-btn" onclick="event.stopPropagation(); addToCart('${product.name}')">
+              <span>🛒</span> Add to Cart
+            </button>
+            <button class="product-view-btn" onclick="event.stopPropagation(); openProductDetail('${product.name}')">
+              👁️
+            </button>
+          </div>
         </div>
       `;
       categoryProductsList.appendChild(productDiv);
     });
   }
   
-  // Scroll to products after a short delay
   setTimeout(() => {
     categoryProductsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 300);
@@ -421,24 +481,100 @@ function backToCategories() {
 function openProductDetail(name) {
   const product = allProducts.find(p => p.name.toLowerCase() === name.toLowerCase());
   if (!product) return;
+  
   document.querySelectorAll('main section').forEach(sec => sec.style.display = 'none');
   const detail = document.getElementById('productDetail');
   if (!detail) return;
   detail.style.display = 'block';
+  
   const img = document.getElementById('pdImage');
-  const n = document.getElementById('pdName');
-  const price = document.getElementById('pdPrice');
-  const rating = document.getElementById('pdRating');
+  const thumb1 = document.getElementById('pdThumb1');
+  const thumb2 = document.getElementById('pdThumb2');
+  const thumb3 = document.getElementById('pdThumb3');
+  const productName = document.getElementById('pdName');
+  const ratingDiv = document.getElementById('pdRating');
+  const priceDiv = document.getElementById('pdPrice');
+  const originalPriceDiv = document.getElementById('pdOriginalPrice');
+  const discountDiv = document.getElementById('pdDiscount');
+  const badgesDiv = document.getElementById('pdBadges');
   const desc = document.getElementById('pdDesc');
   const addBtn = document.getElementById('pdAdd');
   const buyBtn = document.getElementById('pdBuy');
-  if (img) img.src = getProductImage(product);
-  if (n) n.textContent = product.name;
-  if (price) price.textContent = `₹${product.price}`;
-  if (rating) rating.textContent = `⭐ ${product.rating || 4.0}`;
-  if (desc) desc.textContent = `High-quality ${product.name}. Fresh and delivered fast.`;
-  if (addBtn) addBtn.onclick = () => addToCart(product.name);
-  if (buyBtn) buyBtn.onclick = () => { addToCart(product.name); proceedToCheckout(); };
+  const qtyInput = document.getElementById('pdQtyInput');
+  const qtyMinus = document.getElementById('pdQtyMinus');
+  const qtyPlus = document.getElementById('pdQtyPlus');
+  
+  const productImg = getProductImage(product);
+  const originalPrice = Math.floor(product.price * 1.2);
+  const discount = Math.floor(((originalPrice - product.price) / originalPrice) * 100);
+  const badge = getProductBadge(product);
+  
+  if (img) img.src = productImg;
+  if (thumb1) thumb1.src = productImg;
+  if (thumb2) thumb2.src = productImg;
+  if (thumb3) thumb3.src = productImg;
+  
+  if (productName) productName.textContent = product.name;
+  
+  if (ratingDiv) {
+    ratingDiv.innerHTML = `
+      <span class="stars">${generateStars(product.rating || 4.0)}</span>
+      <span class="rating-text">${(product.rating || 4.0).toFixed(1)} (${Math.floor(Math.random() * 500 + 100)} reviews)</span>
+    `;
+  }
+  
+  if (priceDiv) priceDiv.textContent = `₹${product.price}`;
+  if (originalPriceDiv) {
+    originalPriceDiv.textContent = discount > 0 ? `₹${originalPrice}` : '';
+    originalPriceDiv.style.display = discount > 0 ? 'block' : 'none';
+  }
+  if (discountDiv) {
+    discountDiv.textContent = discount > 0 ? `${discount}% OFF` : '';
+    discountDiv.style.display = discount > 0 ? 'inline-block' : 'none';
+  }
+  
+  if (badgesDiv && badge) {
+    badgesDiv.innerHTML = `<div class="product-badge ${badge.class}">${badge.text}</div>`;
+  }
+  
+  if (desc) desc.textContent = `Premium quality ${product.name.toLowerCase()}. Sourced fresh from our trusted farmers and delivered straight to your doorstep. Enjoy the taste of farm-fresh goodness with every bite!`;
+  
+  if (qtyInput) qtyInput.value = 1;
+  
+  if (qtyMinus) {
+    qtyMinus.onclick = () => {
+      const current = parseInt(qtyInput.value) || 1;
+      qtyInput.value = Math.max(1, current - 1);
+    };
+  }
+  
+  if (qtyPlus) {
+    qtyPlus.onclick = () => {
+      const current = parseInt(qtyInput.value) || 1;
+      qtyInput.value = current + 1;
+    };
+  }
+  
+  if (addBtn) {
+    addBtn.onclick = () => {
+      const qty = parseInt(qtyInput?.value) || 1;
+      for (let i = 0; i < qty; i++) {
+        addToCart(product.name);
+      }
+    };
+  }
+  
+  if (buyBtn) {
+    buyBtn.onclick = () => {
+      const qty = parseInt(qtyInput?.value) || 1;
+      for (let i = 0; i < qty; i++) {
+        addToCart(product.name);
+      }
+      proceedToCheckout();
+    };
+  }
+  
+  detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function closeProductDetail() {
@@ -1888,14 +2024,16 @@ function renderCategories() {
     const div = document.createElement('div');
     div.className = 'category';
     div.onclick = () => showCategoryProducts(cat);
-    const img = document.createElement('img');
-    img.src = `https://source.unsplash.com/featured/?${encodeURIComponent(cat)}`;
-    img.alt = cat;
-    img.onerror = () => handleCategoryImageError(img, cat);
-    const h3 = document.createElement('h3');
-    h3.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
-    div.appendChild(img);
-    div.appendChild(h3);
+    
+    const productCount = allProducts.filter(p => p.category === cat).length;
+    const hasOffers = Math.random() > 0.6;
+    
+    div.innerHTML = `
+      ${hasOffers ? '<span class="category-badge">Hot</span>' : ''}
+      <img src="${getProductImage({ category: cat })}" alt="${cat}" onerror="handleCategoryImageError(this, '${cat}')">
+      <h3>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
+      <span class="category-count">${productCount} items</span>
+    `;
     container.appendChild(div);
   });
 }
@@ -1905,18 +2043,45 @@ function renderAllProducts() {
   if (!list) return;
   list.innerHTML = '';
   console.log('Rendering all products to DOM:', allProducts.length);
+  
   allProducts.forEach(product => {
     const productDiv = document.createElement('div');
     productDiv.className = 'product';
     productDiv.setAttribute('data-category', product.category);
+    
+    const unit = getProductUnit(product.category);
+    const badge = getProductBadge(product);
+    const placeholderImg = createPlaceholderSVG(product.name, 260, 240);
+    const originalPrice = Math.floor(product.price * 1.2);
+    const discount = Math.floor(((originalPrice - product.price) / originalPrice) * 100);
+    
     productDiv.innerHTML = `
-      <img src="${getProductImage(product)}" alt="${product.name}" onerror="handleImageError(this, '${product.name}')">
-      <h3>${product.name}</h3>
-      <p>₹${product.price} / ${product.category === 'fruits' ? 'kg' : product.category === 'cold drink' ? 'bottle' : 'piece'}</p>
-      <div class="rating">⭐ ${product.rating || 4.0}</div>
-      <div class="product-actions-overlay">
-        <button class="overlay-btn add" onclick="addToCart('${product.name}')">Add to Cart</button>
-        <button class="overlay-btn desc" onclick="openProductDetail('${product.name}')">Check Description</button>
+      <div class="product-image-container">
+        ${badge ? `<div class="product-badge ${badge.class}">${badge.text}</div>` : ''}
+        <button class="product-wishlist-btn" onclick="event.stopPropagation();">♡</button>
+        <img src="${getProductImage(product)}" alt="${product.name}" onerror="this.src='${placeholderImg}'">
+      </div>
+      <div class="product-content">
+        <h3>${product.name}</h3>
+        <div class="product-unit">${unit}</div>
+        <div class="product-rating">
+          <span class="rating-stars">${generateStars(product.rating || 4.0)}</span>
+          <span class="rating-count">(${Math.floor(Math.random() * 500 + 100)})</span>
+        </div>
+        <div class="product-price-row">
+          <span class="product-price">₹${product.price}</span>
+          ${discount > 0 ? `<span class="product-original-price">₹${originalPrice}</span>` : ''}
+          ${discount > 0 ? `<span class="product-discount">${discount}% off</span>` : ''}
+        </div>
+        <div class="product-delivery">🚚 Free delivery on orders above ₹500</div>
+        <div class="product-actions">
+          <button class="product-add-btn" onclick="event.stopPropagation(); addToCart('${product.name}')">
+            <span>🛒</span> Add to Cart
+          </button>
+          <button class="product-view-btn" onclick="event.stopPropagation(); openProductDetail('${product.name}')">
+            👁️
+          </button>
+        </div>
       </div>
     `;
     list.appendChild(productDiv);
