@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRAIN'S MART</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <!-- ✅ Header -->
+  <header>
+    <div class="header-container">
+      <div class="header-row-top">
+        <div class="header-left">
+          <div class="logo">
+            <h1>GRAIN'S MART</h1>
+            <p class="tagline">Fresh Groceries Delivered</p>
+          </div>
+          <div class="deliver-to">
+            <span>Deliver to:</span>
+            <span id="deliverToText">Set location</span>
+            <button class="change-location-btn" onclick="chooseDeliveryLocation()">Change</button>
+          </div>
+        </div>
+        <div class="header-center">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-bar" placeholder="Search products or categories..." onkeyup="searchProducts()">
+          </div>
+        </div>
+      </div>
+
+      <div class="header-row-bottom">
+        <nav class="main-nav">
+          <a href="#home" class="nav-link">🏠 Home</a>
+          <a href="#categories" class="nav-link">📦 Categories</a>
+          <a href="#cart" class="nav-link cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+          <a href="#profile" id="profileNav" class="nav-link">👤 Profile</a>
+        </nav>
+        <div class="auth-links" id="authLinks">
+          <a href="#" onclick="openLoginModal(); return false;" class="login-btn-header">Login</a>
+        </div>
+      </div>
+
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </header>
+
+  <!-- ✅ Main Content -->
+  <main>
+
+    <!-- 🏠 Home -->
+    <section id="home">
+      <video autoplay muted loop playsinline class="bg-video">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+      <div class="home-content">
+        <h2>Welcome to GRAIN'S MART!</h2>
+        <p class="home-subtitle">Fresh Groceries Delivered to Your Doorstep</p>
+        <a href="#categories" class="btn">Explore Categories</a>
+      </div>
+      
+      <!-- Latest Offers Section -->
+      <div class="offers-section">
+        <div class="offers-container">
+          <h2 class="section-title">🎉 Latest Offers & Deals</h2>
+          <p class="section-subtitle">Don't miss out on these amazing deals!</p>
+          <div class="offers-grid" id="offersGrid">
+            <div class="offer-card">
+              <div class="offer-badge">50% OFF</div>
+              <h3>Fresh Fruits</h3>
+              <p>Buy any 2kg fruits and get 50% off</p>
+              <span class="offer-code">Code: FRUIT50</span>
+              <button class="apply-offer-btn" onclick="applyOffer('FRUIT50')">Apply Offer</button>
+            </div>
+            <div class="offer-card">
+              <div class="offer-badge">BUY 2 GET 1</div>
+              <h3>Cold Drinks</h3>
+              <p>Buy 2 bottles, get 1 free</p>
+              <span class="offer-code">Code: DRINK3</span>
+              <button class="apply-offer-btn" onclick="applyOffer('DRINK3')">Apply Offer</button>
+            </div>
+            <div class="offer-card">
+              <div class="offer-badge">FREE DELIVERY</div>
+              <h3>Orders Above ₹500</h3>
+              <p>Free delivery on orders above ₹500</p>
+              <span class="offer-code">Auto Applied</span>
+              <button class="apply-offer-btn" onclick="showToast('Free delivery will be applied automatically!', 'info')">Learn More</button>
+            </div>
+            <div class="offer-card">
+              <div class="offer-badge">20% OFF</div>
+              <h3>Dairy Products</h3>
+              <p>20% off on all dairy products</p>
+              <span class="offer-code">Code: DAIRY20</span>
+              <button class="apply-offer-btn" onclick="applyOffer('DAIRY20')">Apply Offer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Top/Best Products Section -->
+      <div class="home-products-section">
+        <h2 class="section-title">🔥 Top & Best Products</h2>
+        <p class="section-subtitle">Most searched and popular items</p>
+        <div class="products" id="homeProducts">
+          <!-- Products will be dynamically loaded here -->
+        </div>
+      </div>
+      
+      <!-- Quick Actions Section -->
+      <div class="quick-actions-section">
+        <h2 class="section-title">⚡ Quick Actions</h2>
+        <div class="quick-actions-grid">
+          <div class="quick-action-card" onclick="showCategoryProducts('fruits')">
+            <div class="quick-action-icon">🍎</div>
+            <h4>Fresh Fruits</h4>
+            <p>Shop Now</p>
+          </div>
+          <div class="quick-action-card" onclick="showCategoryProducts('vegetables')">
+            <div class="quick-action-icon">🥕</div>
+            <h4>Vegetables</h4>
+            <p>Shop Now</p>
+          </div>
+          <div class="quick-action-card" onclick="showCategoryProducts('dairy')">
+            <div class="quick-action-icon">🥛</div>
+            <h4>Dairy Products</h4>
+            <p>Shop Now</p>
+          </div>
+          <div class="quick-action-card" onclick="showCategoryProducts('cold drink')">
+            <div class="quick-action-icon">🥤</div>
+            <h4>Cold Drinks</h4>
+            <p>Shop Now</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- 🛒 Categories -->
+    <section id="categories" style="display:none;">
+      <h2>Shop by Category</h2>
+      <p class="section-subtitle">Click on any category to view products</p>
+
+      <!-- Scroll Buttons -->
+      <button class="scroll-btn left" onclick="scrollCategories(-300)">&#10094;</button>
+
+      <div class="category-container" id="categoryContainer"></div>
+
+      <button class="scroll-btn right" onclick="scrollCategories(300)">&#10095;</button>
+      
+      <!-- Category Products Display -->
+      <div id="categoryProductsSection" class="category-products-section" style="display:none;">
+        <div class="category-products-header">
+          <h3 id="categoryProductsTitle">Products</h3>
+          <button class="back-to-categories-btn" onclick="backToCategories()">← Back to Categories</button>
+        </div>
+        <div class="products" id="categoryProductsList">
+          <!-- Products will be dynamically loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 🧺 Products -->
+    <section id="products">
+      <h2>Our Products</h2>
+      <div class="products" id="allProductsList"></div>
+    </section>
+   <!-- 🛒 Cart Section -->
+<section id="cart" style="display:none;">
+  <!-- Cart Header -->
+  <div class="cart-header-enhanced">
+    <div class="cart-header-left">
+      <div class="cart-icon-wrapper">
+        <span class="cart-icon">🛒</span>
+      </div>
+      <div class="cart-title-section">
+        <h1 class="cart-title">Your Shopping Cart</h1>
+        <p class="cart-subtitle">Review your items before checkout</p>
+      </div>
+    </div>
+    <div class="cart-header-right">
+      <div class="cart-item-count-badge" id="cart-item-count-text">0 items</div>
+      <button class="continue-shopping-btn" onclick="navigateToSection('#products')">
+        <span class="btn-icon">←</span>
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+  
+  <!-- Cart Main Content -->
+  <div class="cart-main-container">
+    <!-- Cart Items Section -->
+    <div class="cart-items-section">
+      <div id="cart-container" class="cart-items-container">
+        <div id="cart-items-list" class="cart-items-list">
+          <!-- Cart items will be dynamically added here -->
+        </div>
+        
+        <!-- Empty Cart State -->
+        <div id="empty-cart" class="empty-cart-state">
+          <div class="empty-cart-illustration">
+            <div class="empty-cart-circle">
+              <span class="empty-cart-icon">🛒</span>
+            </div>
+          </div>
+          <h3 class="empty-cart-title">Your cart is empty</h3>
+          <p class="empty-cart-description">Looks like you haven't added anything to your cart yet</p>
+          <button class="shop-now-btn-enhanced" onclick="navigateToSection('#products')">
+            <span class="btn-icon">🛍️</span>
+            Start Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cart Summary Section -->
+    <div class="cart-summary-section">
+      <div class="cart-summary-card-enhanced">
+        <div class="summary-header">
+          <h3 class="summary-title">Order Summary</h3>
+          <div class="summary-badge">
+            <span class="badge-icon">✓</span>
+            Secure Checkout
+          </div>
+        </div>
+        
+        <div class="summary-content">
+          <div class="summary-row">
+            <span class="summary-label">Subtotal</span>
+            <span class="summary-value" id="cart-subtotal">₹0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Discount</span>
+            <span class="summary-value discount-value" id="discount-amount">-₹0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Delivery Charges</span>
+            <span class="summary-value delivery-value" id="delivery-charges">FREE</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row total-row">
+            <span class="total-label">Total Amount</span>
+            <span class="total-value">
+              <span class="currency-symbol">₹</span>
+              <span id="cart-total">0.00</span>
+            </span>
+          </div>
+          
+          <!-- Promo Code Section -->
+          <div class="promo-section">
+            <div class="promo-header">
+              <span class="promo-icon">🎫</span>
+              <span class="promo-title">Have a promo code?</span>
+            </div>
+            <div class="promo-input-group">
+              <input type="text" id="promo-code-input" class="promo-input" placeholder="Enter offer code">
+              <button class="promo-apply-btn" onclick="applyOffer(document.getElementById('promo-code-input').value)">Apply</button>
+            </div>
+            <div class="promo-hint">Try: FRUIT50, DRINK3, DAIRY20</div>
+          </div>
+          
+          <!-- Delivery Info -->
+          <div class="delivery-info">
+            <div class="delivery-item">
+              <span class="delivery-icon">🚚</span>
+              <span class="delivery-text">Express Delivery</span>
+            </div>
+            <div class="delivery-item">
+              <span class="delivery-icon">💰</span>
+              <span class="delivery-text">Cash on Delivery Available</span>
+            </div>
+          </div>
+          
+          <!-- Checkout Button -->
+          <button class="checkout-btn-enhanced" onclick="proceedToCheckout()">
+            <span class="btn-text">Proceed to Checkout</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          
+          <div class="secure-badges">
+            <div class="secure-badge">
+              <span class="badge-icon">🔒</span>
+              <span class="badge-text">Secure Payment</span>
+            </div>
+            <div class="secure-badge">
+              <span class="badge-icon">🛡️</span>
+              <span class="badge-text">100% Authentic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- 👤 Profile Section -->
+    <section id="profile" style="display:none;">
+      <div class="profile-container">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <span id="profileInitial">U</span>
+          </div>
+          <h2 id="profileName">Guest User</h2>
+          <p id="profileEmail">Not logged in</p>
+          <div class="profile-stats">
+            <div class="profile-stat-item">
+              <div class="profile-stat-label">Active Orders</div>
+              <div class="profile-stat-value" id="statActiveOrders">0</div>
+            </div>
+            <div class="profile-stat-item">
+              <div class="profile-stat-label">Wallet Balance</div>
+              <div class="profile-stat-value">₹<span id="statWalletBalance">0.00</span></div>
+            </div>
+            <div class="profile-stat-item">
+              <div class="profile-stat-label">Past Orders</div>
+              <div class="profile-stat-value" id="statOrderHistory">0</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="profile-tabs">
+            <button class="profile-tab-btn active" onclick="showProfileTab('currentOrders')">Current Orders</button>
+            <button class="profile-tab-btn" onclick="showProfileTab('orderHistory')">Order History</button>
+            <button class="profile-tab-btn" onclick="showProfileTab('track')">Track Order</button>
+            <button class="profile-tab-btn" onclick="showProfileTab('payment')">Payment Mode</button>
+            <button class="profile-tab-btn" onclick="showProfileTab('addresses')">Saved Addresses</button>
+            <button class="profile-tab-btn" onclick="showProfileTab('account')">Account Details</button>
+          <button class="profile-tab-btn" onclick="showProfileTab('wallet')">Wallet</button>
+          <button class="profile-tab-btn" onclick="showProfileTab('invoices')">Invoices</button>
+          <button class="profile-tab-btn" onclick="showProfileTab('support')">Support & Assistance</button>
+          <button class="profile-tab-btn" onclick="showProfileTab('about')">About</button>
+        </div>
+
+        <div class="profile-content">
+          <!-- Current Orders Tab -->
+          <div id="profileCurrentOrdersTab" class="profile-tab-content active">
+            <h3>Current Orders</h3>
+            <div id="currentOrdersList">
+              <p class="empty-state">No active orders. Your current orders will appear here!</p>
+            </div>
+          </div>
+
+          <!-- Order History Tab -->
+          <div id="profileOrderHistoryTab" class="profile-tab-content">
+            <h3>Order History</h3>
+            <div id="orderHistoryList">
+              <p class="empty-state">No order history yet. Start shopping to see your orders here!</p>
+            </div>
+          </div>
+
+          <!-- Payment Mode Tab -->
+          <div id="profilePaymentTab" class="profile-tab-content">
+            <h3>Payment Methods</h3>
+            <div class="payment-methods-list">
+              <div class="payment-method-card">
+                <div class="payment-method-info">
+                  <span class="payment-icon">💳</span>
+                  <div>
+                    <h4>Credit/Debit Card</h4>
+                    <p>**** **** **** 1234</p>
+                  </div>
+                </div>
+                <button class="payment-action-btn">Set as Default</button>
+              </div>
+              <div class="payment-method-card">
+                <div class="payment-method-info">
+                  <span class="payment-icon">📱</span>
+                  <div>
+                    <h4>UPI</h4>
+                    <p>user@upi</p>
+                  </div>
+                </div>
+                <button class="payment-action-btn">Set as Default</button>
+              </div>
+              <div class="payment-method-card">
+                <div class="payment-method-info">
+                  <span class="payment-icon">💵</span>
+                  <div>
+                    <h4>Cash on Delivery</h4>
+                    <p>Pay when you receive</p>
+                  </div>
+                </div>
+                <button class="payment-action-btn">Set as Default</button>
+              </div>
+              <button class="add-payment-btn" onclick="showAddPaymentForm()">+ Add New Payment Method</button>
+            </div>
+          </div>
+
+          <!-- Saved Addresses Tab -->
+          <div id="profileAddressesTab" class="profile-tab-content">
+            <h3>Saved Addresses</h3>
+            <div id="addressesList">
+              <p class="empty-state">No saved addresses. Add one below!</p>
+            </div>
+            <button class="add-address-btn" onclick="showAddAddressForm()">+ Add New Address</button>
+          </div>
+
+          <!-- Account Details Tab -->
+          <div id="profileAccountTab" class="profile-tab-content">
+            <h3>Account Details</h3>
+            <div id="accountDetailsView"></div>
+            <form id="profileInfoForm" style="display:none;">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="profileFullName" placeholder="Full Name">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="profileEmailInput" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="profilePhone" placeholder="Phone Number">
+              </div>
+              <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" id="profileDOB" placeholder="Date of Birth">
+              </div>
+              <button type="button" onclick="saveProfileInfo()" class="save-btn">Save Changes</button>
+            </form>
+          </div>
+
+          <!-- Wallet Tab -->
+          <div id="profileWalletTab" class="profile-tab-content">
+            <h3>My Wallet</h3>
+            <div class="wallet-layout">
+              <div class="wallet-balance-card">
+                <div class="wallet-balance">
+                  <span class="wallet-label">Available Balance</span>
+                  <span class="wallet-amount">₹<span id="walletBalance">0.00</span></span>
+                </div>
+                <button class="add-money-btn" onclick="showAddMoneyForm()">+ Add Money</button>
+              </div>
+              <div class="wallet-transactions">
+                <h4>Transaction History</h4>
+                <div id="walletTransactionsList">
+                  <p class="empty-state">No transactions yet. Your wallet transactions will appear here!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoices Tab -->
+          <div id="profileInvoicesTab" class="profile-tab-content">
+            <h3>Invoices</h3>
+            <p class="section-subtitle">Download invoices for completed orders</p>
+            <div id="invoicesList">
+              <p class="empty-state">No invoices available. Invoices will appear here after order completion!</p>
+            </div>
+          </div>
+
+          <!-- Support & Assistance Tab -->
+          <div id="profileSupportTab" class="profile-tab-content">
+            <h3>Support & Assistance</h3>
+            <div class="support-section">
+              <div class="support-card">
+                <div class="support-icon">📞</div>
+                <h4>Contact Us</h4>
+                <p>Phone: 1800-XXX-XXXX</p>
+                <p>Email: support@grainsmart.com</p>
+                <button class="contact-btn" onclick="contactSupport('phone')">Call Now</button>
+              </div>
+              
+              <div class="support-card">
+                <div class="support-icon">💬</div>
+                <h4>Live Chat</h4>
+                <p>Chat with our support team</p>
+                <button class="contact-btn" onclick="toggleChatbot()">Start Chat</button>
+              </div>
+              
+              <div class="support-card">
+                <div class="support-icon">❓</div>
+                <h4>FAQs</h4>
+                <p>Find answers to common questions</p>
+                <button class="contact-btn" onclick="showFAQs()">View FAQs</button>
+              </div>
+              
+              <div class="support-card">
+                <div class="support-icon">📧</div>
+                <h4>Email Support</h4>
+                <p>Send us an email</p>
+                <button class="contact-btn" onclick="contactSupport('email')">Send Email</button>
+              </div>
+            </div>
+            
+            <div class="help-section">
+              <h4>Need Help?</h4>
+              <div class="help-topics">
+                <button class="help-topic-btn" onclick="showHelpTopic('delivery')">🚚 Delivery Information</button>
+                <button class="help-topic-btn" onclick="showHelpTopic('returns')">↩️ Returns & Refunds</button>
+                <button class="help-topic-btn" onclick="showHelpTopic('payment')">💳 Payment Issues</button>
+                <button class="help-topic-btn" onclick="showHelpTopic('account')">👤 Account Help</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="profileOffersTab" class="profile-tab-content">
+            <h3>Offers & Deals - GrainSmart</h3>
+            <div id="activeOfferBar"></div>
+            <div class="offer-apply-box">
+              <input type="text" id="offerCodeInput" placeholder="Enter coupon code">
+              <button onclick="applyOffer(document.getElementById('offerCodeInput').value)">Apply</button>
+              <button onclick="clearOffer()">Remove</button>
+            </div>
+            <div id="offersList" class="offers-grid"></div>
+          </div>
+          
+          <!-- Track Order Tab (moved inside profile) -->
+          <div id="profileTrackTab" class="profile-tab-content">
+            <h3>Track Your Order</h3>
+            <div class="order-search-section">
+              <div class="search-box-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="orderSearchInput" placeholder="Enter Order ID (e.g., ORD1234567890)" onkeyup="searchOrder(event)">
+                <button class="search-btn" onclick="searchOrder()">Search</button>
+              </div>
+            </div>
+            <div id="orderDetailsSection" class="order-details-section" style="display:none;">
+              <div class="order-summary-card">
+                <div class="order-header-info">
+                  <div class="order-id-section">
+                    <h3 id="trackingOrderId">ORD1234567890</h3>
+                    <span id="orderDate" class="order-date">Placed on 16 Nov 2025</span>
+                  </div>
+                  <div class="order-status-badge" id="orderStatusBadge">
+                    <span class="status-text">In Transit</span>
+                  </div>
+                </div>
+                <div class="order-items-summary">
+                  <div class="item-count">
+                    <span class="count-number">3</span>
+                    <span class="count-label">Items</span>
+                  </div>
+                  <div class="order-total">
+                    <span class="total-label">Total Amount</span>
+                    <span class="total-amount" id="trackingOrderTotal">₹299.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="delivery-address-card">
+                <h4>📍 Delivery Address</h4>
+                <div id="deliveryAddress" class="address-details">
+                  <p class="address-name">John Doe</p>
+                  <p class="address-text">123 Main St, Apt 4B, Mumbai, Maharashtra 400001</p>
+                  <p class="address-phone">📞 +91 9876543210</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- About Tab (moved inside profile) -->
+          <div id="profileAboutTab" class="profile-tab-content">
+            <h3>About Grain's Mart</h3>
+            <div class="about-hero">
+              <div class="about-hero-content">
+                <h1 class="about-hero-title">About Grain's Mart</h1>
+                <p class="about-hero-subtitle">Connecting Farms to Families Since 2020</p>
+                <div class="about-hero-stats">
+                  <div class="stat-item">
+                    <span class="stat-number">50,000+</span>
+                    <span class="stat-label">Happy Customers</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Partner Farms</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Fresh Delivery</span>
+                  </div>
+                </div>
+              </div>
+              <div class="about-hero-image">
+                <div class="about-image-placeholder">
+                  <span class="about-image-icon">🌾</span>
+                </div>
+              </div>
+            </div>
+            <div class="about-story">
+              <div class="about-container">
+                <h2 class="section-title">Our Story</h2>
+                <div class="story-content">
+                  <div class="story-text">
+                    <p class="story-paragraph">Grain's Mart began with a simple mission: to bridge the gap between local farmers and urban families.</p>
+                    <div class="story-highlights">
+                      <div class="highlight-item"><span class="highlight-icon">🚜</span><span class="highlight-text">Direct from Farm</span></div>
+                      <div class="highlight-item"><span class="highlight-icon">✨</span><span class="highlight-text">100% Quality Assured</span></div>
+                      <div class="highlight-item"><span class="highlight-icon">🚚</span><span class="highlight-text">Quick Delivery</span></div>
+                    </div>
+                  </div>
+                  <div class="story-image">
+                    <div class="story-image-placeholder"><span class="story-image-icon">🌱</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ℹ️ About -->
+    <section id="about" style="display:none;">
+      <!-- Hero Section -->
+      <div class="about-hero">
+        <div class="about-hero-content">
+          <h1 class="about-hero-title">About Grain's Mart</h1>
+          <p class="about-hero-subtitle">Connecting Farms to Families Since 2020</p>
+          <div class="about-hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">50,000+</span>
+              <span class="stat-label">Happy Customers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100+</span>
+              <span class="stat-label">Partner Farms</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Fresh Delivery</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-hero-image">
+          <div class="about-image-placeholder">
+            <span class="about-image-icon">🌾</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Our Story -->
+      <div class="about-story">
+        <div class="about-container">
+          <h2 class="section-title">Our Story</h2>
+          <div class="story-content">
+            <div class="story-text">
+              <p class="story-paragraph">
+                Grain's Mart began with a simple mission: to bridge the gap between local farmers and urban families. 
+                Founded in 2020 by agricultural enthusiasts, we recognized the need for a direct, transparent supply chain 
+                that benefits both producers and consumers.
+              </p>
+              <p class="story-paragraph">
+                What started as a small initiative with just 5 partner farms has now grown into a network of over 100 
+                farms across the region, serving thousands of families with farm-fresh products delivered right to their 
+                doorsteps.
+              </p>
+              <div class="story-highlights">
+                <div class="highlight-item">
+                  <span class="highlight-icon">🚜</span>
+                  <span class="highlight-text">Direct from Farm</span>
+                </div>
+                <div class="highlight-item">
+                  <span class="highlight-icon">✨</span>
+                  <span class="highlight-text">100% Quality Assured</span>
+                </div>
+                <div class="highlight-item">
+                  <span class="highlight-icon">🚚</span>
+                  <span class="highlight-text">Quick Delivery</span>
+                </div>
+              </div>
+            </div>
+            <div class="story-image">
+              <div class="story-image-placeholder">
+                <span class="story-image-icon">🌱</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mission & Vision -->
+      <div class="about-mission-vision">
+        <div class="about-container">
+          <div class="mission-vision-grid">
+            <div class="mission-card">
+              <div class="card-icon">🎯</div>
+              <h3 class="card-title">Our Mission</h3>
+              <p class="card-description">
+                To provide fresh, high-quality agricultural products directly from farms to consumers, 
+                ensuring fair prices for farmers and fresh, healthy food for families.
+              </p>
+            </div>
+            <div class="vision-card">
+              <div class="card-icon">🔮</div>
+              <h3 class="card-title">Our Vision</h3>
+              <p class="card-description">
+                To become the most trusted platform for fresh agricultural products, 
+                creating a sustainable ecosystem that empowers local farmers and nourishes communities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Values -->
+      <div class="about-values">
+        <div class="about-container">
+          <h2 class="section-title">Our Core Values</h2>
+          <div class="values-grid">
+            <div class="value-item">
+              <div class="value-icon">🌿</div>
+              <h3 class="value-title">Freshness First</h3>
+              <p class="value-description">We guarantee farm-fresh products delivered within hours of harvesting</p>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">🤝</div>
+              <h3 class="value-title">Fair Trade</h3>
+              <p class="value-description">Ensuring farmers get their deserved share and customers get reasonable prices</p>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">🔍</div>
+              <h3 class="value-title">Transparency</h3>
+              <p class="value-description">Complete visibility from farm to table with quality checks at every step</p>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">💚</div>
+              <h3 class="value-title">Sustainability</h3>
+              <p class="value-description">Promoting eco-friendly farming practices and reducing food waste</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Choose Us -->
+      <div class="about-why-choose">
+        <div class="about-container">
+          <h2 class="section-title">Why Choose Grain's Mart?</h2>
+          <div class="why-choose-grid">
+            <div class="why-item">
+              <div class="why-number">01</div>
+              <h3 class="why-title">Farm Fresh Guarantee</h3>
+              <p class="why-description">Products delivered directly from farms within 24 hours of harvesting</p>
+            </div>
+            <div class="why-item">
+              <div class="why-number">02</div>
+              <h3 class="why-title">Quality Assured</h3>
+              <p class="why-description">Every product undergoes strict quality checks before reaching you</p>
+            </div>
+            <div class="why-item">
+              <div class="why-number">03</div>
+              <h3 class="why-title">Support Local Farmers</h3>
+              <p class="why-description">Your purchase directly supports local farming communities</p>
+            </div>
+            <div class="why-item">
+              <div class="why-number">04</div>
+              <h3 class="why-title">Convenient Delivery</h3>
+              <p class="why-description">Doorstep delivery at your preferred time with real-time tracking</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Section -->
+      <div class="about-team">
+        <div class="about-container">
+          <h2 class="section-title">Meet Our Team</h2>
+          <div class="team-grid">
+            <div class="team-member">
+              <div class="member-avatar">
+                <span class="avatar-text">JD</span>
+              </div>
+              <h3 class="member-name">John Doe</h3>
+              <p class="member-role">Founder & CEO</p>
+              <p class="member-bio">Agricultural expert with 15+ years of experience in farm management</p>
+            </div>
+            <div class="team-member">
+              <div class="member-avatar">
+                <span class="avatar-text">JS</span>
+              </div>
+              <h3 class="member-name">Jane Smith</h3>
+              <p class="member-role">Operations Head</p>
+              <p class="member-bio">Supply chain specialist ensuring quality and timely deliveries</p>
+            </div>
+            <div class="team-member">
+              <div class="member-avatar">
+                <span class="avatar-text">RJ</span>
+              </div>
+              <h3 class="member-name">Raj Johnson</h3>
+              <p class="member-role">Farm Relations</p>
+              <p class="member-bio">Building strong relationships with our partner farms</p>
+            </div>
+            <div class="team-member">
+              <div class="member-avatar">
+                <span class="avatar-text">AC</span>
+              </div>
+              <h3 class="member-name">Amy Chen</h3>
+              <p class="member-role">Customer Experience</p>
+              <p class="member-bio">Ensuring the best service experience for all our customers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="about-cta">
+        <div class="about-container">
+          <div class="cta-content">
+            <h2 class="cta-title">Ready to Experience Farm-Fresh Goodness?</h2>
+            <p class="cta-description">Join thousands of happy customers who trust Grain's Mart for their daily needs</p>
+            <div class="cta-buttons">
+              <button class="cta-primary-btn" onclick="navigateToSection('#products')">Shop Now</button>
+              <button class="cta-secondary-btn" onclick="navigateToSection('#contact')">Contact Us</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📧 Newsletter - Improved Design -->
+    <section id="newsletter">
+      <div class="newsletter-container">
+        <div class="newsletter-content">
+          <div class="newsletter-icon">📬</div>
+          <h2>Stay Updated with Latest Offers!</h2>
+          <p>Subscribe to our newsletter and never miss out on exclusive deals, new products, and special discounts.</p>
+          <form id="newsletterForm" class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+              <button type="submit" class="newsletter-submit-btn">
+                <span>Subscribe</span>
+                <span class="submit-icon">→</span>
+              </button>
+            </div>
+            <p class="newsletter-privacy">🔒 We respect your privacy. Unsubscribe at any time.</p>
+          </form>
+          <div class="newsletter-benefits">
+            <div class="benefit-item">
+              <span class="benefit-icon">🎁</span>
+              <span>Exclusive Offers</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">🆕</span>
+              <span>New Products</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">💰</span>
+              <span>Special Discounts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Detail Page -->
+    <section id="productDetail" style="display:none;">
+      <div class="product-detail-container">
+        <button class="back-to-categories-btn" onclick="closeProductDetail()">← Back</button>
+        <div class="product-detail-content">
+          <img id="pdImage" src="" alt="Product" class="product-detail-image">
+          <div class="product-detail-info">
+            <h2 id="pdName"></h2>
+            <p id="pdRating" class="rating"></p>
+            <h3 id="pdPrice"></h3>
+            <p id="pdDesc">Description</p>
+            <div class="qty-controls">
+              <button id="pdQtyMinus">-</button>
+              <input type="number" id="pdQtyInput" min="1" value="1">
+              <button id="pdQtyPlus">+</button>
+            </div>
+            <div class="product-detail-actions">
+              <button id="pdAdd">Add to Cart</button>
+              <button id="pdBuy" class="checkout-btn-zepto">Buy Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-detail-reviews">
+          <h3>Reviews</h3>
+          <form id="reviewForm" class="review-form" onsubmit="event.preventDefault(); submitProductReview();">
+            <input type="text" id="reviewName" placeholder="Your name" required>
+            <select id="reviewRating">
+              <option value="5">★★★★★ (5)</option>
+              <option value="4">★★★★☆ (4)</option>
+              <option value="3">★★★☆☆ (3)</option>
+              <option value="2">★★☆☆☆ (2)</option>
+              <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+            <input type="text" id="reviewComment" placeholder="Write a review" required>
+            <button type="submit">Submit Review</button>
+          </form>
+          <div id="reviewsList">
+            <p class="empty-state">No reviews yet</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📍 Track Order Page -->
+    <section id="trackOrder" style="display:none;">
+      <div class="track-order-container">
+        <button class="back-to-profile-btn" onclick="closeTrackOrder()">← Back to Profile</button>
+        
+        <div class="track-order-header">
+          <h2>📍 Track Your Order</h2>
+          <p>Get real-time updates on your order status</p>
+        </div>
+
+        <!-- Order Search Section -->
+        <div class="order-search-section">
+          <div class="search-box-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="orderSearchTrackInput" placeholder="Enter Order ID (e.g., ORD1234567890)" onkeyup="searchOrder(event)">
+            <button class="search-btn" onclick="searchOrder()">Search</button>
+          </div>
+        </div>
+
+        <!-- Order Details Section -->
+        <div id="orderDetailsSection" class="order-details-section" style="display:none;">
+          <div class="order-summary-card">
+            <div class="order-header-info">
+              <div class="order-id-section">
+                <h3 id="trackingOrderId">ORD1234567890</h3>
+                <span id="orderDate" class="order-date">Placed on 16 Nov 2025</span>
+              </div>
+              <div class="order-status-badge" id="orderStatusBadge">
+                <span class="status-text">In Transit</span>
+              </div>
+            </div>
+
+            <div class="order-items-summary">
+              <div class="item-count">
+                <span class="count-number">3</span>
+                <span class="count-label">Items</span>
+              </div>
+              <div class="order-total">
+                <span class="total-label">Total Amount</span>
+                <span class="total-amount" id="trackingOrderTotal">₹299.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Address -->
+          <div class="delivery-address-card">
+            <h4>📍 Delivery Address</h4>
+            <div id="deliveryAddress" class="address-details">
+              <p class="address-name">John Doe</p>
+              <p class="address-text">123 Main St, Apt 4B, Mumbai, Maharashtra 400001</p>
+              <p class="address-phone">📞 +91 9876543210</p>
+            </div>
+          </div>
+
+          <!-- Order Timeline -->
+          <div class="order-timeline">
+            <h4>📦 Order Status</h4>
+            <div class="timeline-container" id="orderTimeline">
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Order Placed</h5>
+                  <p class="timeline-time">16 Nov, 2:30 PM</p>
+                  <p class="timeline-desc">Your order has been successfully placed</p>
+                </div>
+              </div>
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Order Confirmed</h5>
+                  <p class="timeline-time">16 Nov, 2:35 PM</p>
+                  <p class="timeline-desc">Order confirmed and being prepared</p>
+                </div>
+              </div>
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Out for Delivery</h5>
+                  <p class="timeline-time">16 Nov, 3:15 PM</p>
+                  <p class="timeline-desc">Your order is on the way</p>
+                </div>
+              </div>
+              <div class="timeline-item pending">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Delivered</h5>
+                  <p class="timeline-time">Expected by 4:30 PM</p>
+                  <p class="timeline-desc">Order will be delivered soon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Partner Info -->
+          <div id="deliveryPartnerSection" class="delivery-partner-card" style="display:none;">
+            <h4>🚚 Delivery Partner</h4>
+            <div class="partner-info">
+              <div class="partner-details">
+                <img src="https://picsum.photos/seed/delivery/50/50" alt="Delivery Partner" class="partner-avatar">
+                <div class="partner-text">
+                  <p class="partner-name" id="deliveryPartnerName">Raj Kumar</p>
+                  <p class="partner-vehicle" id="deliveryPartnerVehicle">Honda Activa</p>
+                  <p class="partner-rating">⭐ 4.8</p>
+                </div>
+              </div>
+              <div class="partner-actions">
+                <button class="call-btn" onclick="callDeliveryPartner()">📞 Call</button>
+                <button class="track-btn" onclick="trackDeliveryLocation()">📍 Live Track</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Items -->
+          <div class="order-items-card">
+            <h4>🛍️ Order Items</h4>
+            <div id="trackingOrderItems" class="tracking-items-list">
+              <!-- Items will be dynamically loaded here -->
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="order-actions">
+            <button class="action-btn secondary" onclick="downloadInvoice()">📄 Download Invoice</button>
+            <button class="action-btn secondary" onclick="contactSupport()">💬 Need Help?</button>
+            <button class="action-btn primary" onclick="reorderItems()">🔄 Reorder</button>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="trackOrderEmptyState" class="empty-state-container">
+          <div class="empty-icon">📦</div>
+          <h3>No Order Found</h3>
+          <p>Enter your order ID to track your delivery status</p>
+          <p class="empty-hint">You can find your order ID in your email or in the Profile section under Current Orders</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="addressPage" style="display:none;">
+      <div class="address-page-container">
+        <button class="back-to-categories-btn" onclick="closeAddressPage()">← Back</button>
+        <h2>Add Delivery Address</h2>
+        <form id="addressForm" onsubmit="event.preventDefault(); saveAddressFromForm();">
+          <div class="address-form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="addrFullName" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="tel" id="addrPhone" placeholder="10-digit mobile" required>
+            </div>
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" id="addrPincode" placeholder="Pincode" required>
+            </div>
+            <div class="form-group">
+              <label>Address Line 1</label>
+              <input type="text" id="addrLine1" placeholder="House no., building, street" required>
+            </div>
+            <div class="form-group">
+              <label>Address Line 2</label>
+              <input type="text" id="addrLine2" placeholder="Area, locality">
+            </div>
+            <div class="form-group">
+              <label>Landmark</label>
+              <input type="text" id="addrLandmark" placeholder="Nearby landmark">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="addrCity" placeholder="City" required>
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="addrState" placeholder="State" required>
+            </div>
+            <div class="form-group">
+              <label>Address Type</label>
+              <select id="addrType">
+                <option>Home</option>
+                <option>Work</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="addrDefault"> Set as default address
+              </label>
+            </div>
+          </div>
+          <div class="address-actions">
+            <button type="submit" class="save-btn">Save Address</button>
+            <button type="button" class="back-btn" onclick="closeAddressPage()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="miniCartBar" class="mini-cart-bar" style="display:none;">
+    <div class="mini-cart-info">🛒 <span id="miniCartCount">0 items</span> • ₹<span id="miniCartTotal">0.00</span> • <span id="miniCartSlot">Express 10–20 min</span></div>
+    <button class="mini-cart-checkout" onclick="document.querySelector('.checkout-btn-zepto')?.click()">Checkout</button>
+  </div>
+
+  <!-- ✅ Footer -->
+  <footer>
+    <p>&copy; 2025 GRAIN'S MART | Follow us:
+      <a href="#">Facebook</a> |
+      <a href="#">Instagram</a> |
+      <a href="#">Twitter</a>
+    </p>
+  </footer>
+
+  <!-- ✅ Login/Signup Modal with Tabs -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      
+      <!-- Tab Navigation -->
+      <div class="tab-container">
+        <button class="tab-button active" onclick="switchTab('login')" id="loginTab">Login</button>
+        <button class="tab-button" onclick="switchTab('signup')" id="signupTab">Sign Up</button>
+      </div>
+
+      <!-- Login Tab Content -->
+      <div id="loginTabContent" class="tab-content active">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="event.preventDefault(); login();">
+          <input type="text" id="loginUsername" placeholder="Username" required>
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <a href="#" onclick="showForgotPassword(); return false;" class="forgot-password-link">Forgot Password?</a>
+          <button type="submit">Login</button>
+          <button type="button" class="skip-btn" onclick="skipLogin()">Skip & Continue Shopping</button>
+          <p id="login-error-msg" class="error-msg"></p>
+        </form>
+      </div>
+
+      <!-- Signup Tab Content -->
+      <div id="signupTabContent" class="tab-content">
+        <h2>Sign Up</h2>
+        <form id="signupForm" onsubmit="event.preventDefault(); signUp();">
+          <input type="text" id="signupUsername" placeholder="Username" required>
+          <input type="password" id="signupPassword" placeholder="Password" required>
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+          <button type="submit">Sign Up</button>
+          <button type="button" class="skip-btn" onclick="skipLogin()">Skip & Continue Shopping</button>
+          <p id="signup-error-msg" class="error-msg"></p>
+        </form>
+      </div>
+
+      <!-- Forgot Password Tab Content -->
+      <div id="forgotPasswordTabContent" class="tab-content">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm" onsubmit="event.preventDefault(); resetPassword();">
+          <input type="text" id="forgotUsername" placeholder="Enter your username" required>
+          <button type="submit">Reset Password</button>
+          <button type="button" class="back-btn" onclick="switchTab('login')">Back to Login</button>
+          <p id="forgot-error-msg" class="error-msg"></p>
+          <p id="forgot-success-msg" class="success-msg"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- ✅ Payment Options Modal -->
+  <div id="paymentOptionsModal" class="modal">
+    <div class="modal-content payment-modal">
+      <span class="close" onclick="closePaymentOptions()">&times;</span>
+      
+      <div class="payment-header">
+        <h2>Select Payment Method</h2>
+        <div class="order-summary">
+          <p>Total Amount: <strong>₹<span id="paymentTotal">0.00</span></strong></p>
+        </div>
+      </div>
+
+      <div class="payment-methods">
+        <div class="payment-option" onclick="selectPaymentMethod('upi')">
+          <div class="payment-icon">📱</div>
+          <div class="payment-info">
+            <h3>UPI</h3>
+            <p>Pay with UPI apps (PhonePe, GPay, Paytm)</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('card')">
+          <div class="payment-icon">💳</div>
+          <div class="payment-info">
+            <h3>Credit/Debit Card</h3>
+            <p>Visa, Mastercard, Ruppay</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('netbanking')">
+          <div class="payment-icon">🏦</div>
+          <div class="payment-info">
+            <h3>Net Banking</h3>
+            <p>Pay from your bank account</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('wallet')">
+          <div class="payment-icon">👛</div>
+          <div class="payment-info">
+            <h3>Wallets</h3>
+            <p>Paytm Wallet, Amazon Pay, etc.</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('cod')">
+          <div class="payment-icon">💵</div>
+          <div class="payment-info">
+            <h3>Cash on Delivery</h3>
+            <p>Pay when you receive your order</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Payment Details Modal -->
+  <div id="paymentDetailsModal" class="modal">
+    <div class="modal-content payment-details-modal">
+      <span class="close" onclick="closePaymentDetails()">&times;</span>
+      
+      <div class="payment-details-header">
+        <button class="back-btn" onclick="backToPaymentOptions()">← Back</button>
+        <h2 id="paymentDetailsTitle">Payment Details</h2>
+      </div>
+
+      <div id="upiPaymentForm" class="payment-form" style="display:none;">
+        <h3>Enter UPI ID</h3>
+        <input type="text" id="upiId" placeholder="yourupi@paytm" class="payment-input">
+        <button class="pay-btn" onclick="processUPIPayment()">Pay ₹<span id="upiAmount">0.00</span></button>
+      </div>
+
+      <div id="cardPaymentForm" class="payment-form" style="display:none;">
+        <h3>Card Details</h3>
+        <input type="text" id="cardNumber" placeholder="Card Number" maxlength="19" class="payment-input">
+        <div class="card-row">
+          <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" class="payment-input half">
+          <input type="text" id="cardCvv" placeholder="CVV" maxlength="3" class="payment-input half">
+        </div>
+        <input type="text" id="cardName" placeholder="Cardholder Name" class="payment-input">
+        <button class="pay-btn" onclick="processCardPayment()">Pay ₹<span id="cardAmount">0.00</span></button>
+      </div>
+
+      <div id="netbankingPaymentForm" class="payment-form" style="display:none;">
+        <h3>Select Bank</h3>
+        <select id="bankSelect" class="payment-input">
+          <option value="">Choose your bank</option>
+          <option value="sbi">State Bank of India</option>
+          <option value="hdfc">HDFC Bank</option>
+          <option value="icici">ICICI Bank</option>
+          <option value="pnb">Punjab National Bank</option>
+          <option value="axis">Axis Bank</option>
+        </select>
+        <button class="pay-btn" onclick="processNetBankingPayment()">Pay ₹<span id="netbankingAmount">0.00</span></button>
+      </div>
+
+      <div id="walletPaymentForm" class="payment-form" style="display:none;">
+        <h3>Select Wallet</h3>
+        <div class="wallet-options">
+          <div class="wallet-option" onclick="selectWallet('paytm', this)">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300479B'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E" alt="Paytm">
+            <span>Paytm Wallet</span>
+          </div>
+          <div class="wallet-option" onclick="selectWallet('amazon', this)">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF9900'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E" alt="Amazon Pay">
+            <span>Amazon Pay</span>
+          </div>
+        </div>
+        <button class="pay-btn" onclick="processWalletPayment()" style="display:none;">Pay ₹<span id="walletAmount">0.00</span></button>
+      </div>
+
+      <div id="codPaymentForm" class="payment-form" style="display:none;">
+        <div class="cod-summary">
+          <h3>Cash on Delivery</h3>
+          <p>You will pay ₹<span id="codAmount">0.00</span> when your order is delivered.</p>
+          <div class="cod-info">
+            <p>• Please keep exact change ready</p>
+            <p>• Delivery partner will collect payment</p>
+            <p>• You can check the order before paying</p>
+          </div>
+        </div>
+        <button class="pay-btn" onclick="processCODPayment()">Confirm Order</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Chatbot Widget -->
+  <div id="chatbot" class="chatbot-container">
+    <div id="chatbotToggle" class="chatbot-toggle" onclick="toggleChatbot()">
+      <span>💬</span>
+    </div>
+    <div id="chatbotWindow" class="chatbot-window">
+      <div class="chatbot-header">
+        <h3>Grain's Mart Support</h3>
+        <button onclick="toggleChatbot()" class="chatbot-close">×</button>
+      </div>
+      <div id="chatbotMessages" class="chatbot-messages">
+        <div class="chatbot-message bot">
+          <p>Hello! 👋 How can I help you today?</p>
+        </div>
+      </div>
+      <div class="chatbot-input-container">
+        <input type="text" id="chatbotInput" placeholder="Type your message..." onkeypress="handleChatbotKeyPress(event)">
+        <button onclick="sendChatbotMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Navigation Script -->
+  <script>
+    const sections = document.querySelectorAll("main section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    // Show only home section on first load
+    window.addEventListener("load", () => {
+      sections.forEach(sec => {
+        if (sec.id === 'home') {
+          sec.style.display = "block";
+        } else {
+          sec.style.display = "none";
+        }
+      });
+    });
+
+    // Handle navigation clicks
+    navLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const id = this.getAttribute("href");
+        if (!id || id === '#') return;
+
+        sections.forEach(sec => sec.style.display = "none");
+        const target = document.querySelector(id);
+        if (target) {
+          target.style.display = "block";
+          target.classList.add("fadeIn");
+          
+          // If categories is clicked, show category grid and hide products
+          if (id === '#categories') {
+            const categoryContainer = document.getElementById('categoryContainer');
+            const categoryProductsSection = document.getElementById('categoryProductsSection');
+            if (categoryContainer) categoryContainer.style.display = 'flex';
+            if (categoryProductsSection) categoryProductsSection.style.display = 'none';
+          }
+          
+          // If profile is clicked, make sure user is logged in and refresh profile UI
+          if (id === '#profile') {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+              target.style.display = "none";
+              openLoginModal();
+              return;
+            } else {
+              // Refresh profile display and default to current orders
+              try { updateProfileUI(); } catch(e) { /* ignore if not available */ }
+              try { showProfileTab('currentOrders'); } catch(e) { /* ignore if not available */ }
+            }
+          }
+        }
+
+        navLinks.forEach(l => l.classList.remove("active"));
+        this.classList.add("active");
+      });
+    });
+  </script>
+
+  
+
+</body>
+</html>
