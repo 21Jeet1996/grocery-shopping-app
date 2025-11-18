@@ -1,0 +1,21 @@
+/* ===============================
+   🔹 FOOTER
+================================ */
+footer {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+footer a {
+  color: #FFB74D;
+  text-decoration: none;
+  margin: 0 5px;
+  font-weight: 600; /* Contrast */
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

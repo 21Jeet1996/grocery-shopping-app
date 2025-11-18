@@ -4,20 +4,31 @@
 
 let allProducts = [];
 const CATEGORY_IMAGES = {
-  'fruits': 'assets/images/fruits.svg',
-  'vegetables': 'assets/images/vegetables.svg',
-  'dairy': 'assets/images/dairy.svg',
-  'atta': 'assets/images/atta.svg',
-  'soap': 'assets/images/soap.svg',
-  'biscuit': 'assets/images/biscuit.svg',
-  'cold drink': 'assets/images/cold-drink.svg',
-  'pulses': 'assets/images/pulses.svg',
-  'chocolate': 'assets/images/chocolate.svg'
+  'fruits': 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=400&q=80',
+  'vegetables': 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=80',
+  'dairy': 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=400&q=80',
+  'atta': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80',
+  'soap': 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?auto=format&fit=crop&w=400&q=80',
+  'biscuit': 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=400&q=80',
+  'cold drink': 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=400&q=80',
+  'pulses': 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80',
+  'chocolate': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=400&q=80'
 };
 
 function getProductImage(product) {
+  // 1. Use the image URL directly from the product object if available
+  if (product.img && product.img.startsWith('http')) {
+    return product.img;
+  }
+
+  // 2. Fallback to category image
   const key = (product.category || '').trim().toLowerCase();
-  return CATEGORY_IMAGES[key] || product.img || 'assets/images/vegetables.svg';
+  if (CATEGORY_IMAGES[key]) {
+    return CATEGORY_IMAGES[key];
+  }
+
+  // 3. Final fallback placeholder
+  return 'https://placehold.co/400x400?text=' + encodeURIComponent(product.name || 'Product');
 }
 
 async function loadProducts() {
@@ -300,6 +311,84 @@ function openProductDetail(name) {
   }
   
   detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+  loadProductReviews(product.name);
+}
+
+function loadProductReviews(productName) {
+  const reviewsList = document.getElementById('pdReviewsList');
+  if (!reviewsList) return;
+  
+  // Mock reviews data (since we don't have a backend)
+  // In a real app, fetch this from an API
+  const storedReviews = JSON.parse(localStorage.getItem(`reviews_${productName}`)) || [];
+  
+  const defaultReviews = [
+    { name: "Rahul S.", rating: 5, date: "2 days ago", comment: "Excellent quality and fresh!" },
+    { name: "Priya M.", rating: 4, date: "1 week ago", comment: "Good packaging, timely delivery." },
+    { name: "Amit K.", rating: 5, date: "2 weeks ago", comment: "Value for money. Highly recommended." }
+  ];
+  
+  const reviews = [...storedReviews, ...defaultReviews];
+  
+  // Update Summary
+  const avgRating = (reviews.reduce((acc, r) => acc + parseInt(r.rating), 0) / reviews.length).toFixed(1);
+  
+  const summaryContainer = document.querySelector('.rating-overview');
+  if (summaryContainer) {
+    summaryContainer.innerHTML = `
+      <div class="avg-rating">${avgRating}</div>
+      <div>
+        <div class="stars">${generateStars(avgRating)}</div>
+        <div class="rating-count">${reviews.length} Ratings & Reviews</div>
+      </div>
+    `;
+  }
+
+  // Render List
+  reviewsList.innerHTML = reviews.map(review => `
+    <div class="review-card">
+      <div class="review-header">
+        <span class="reviewer-name">${review.name}</span>
+        <span class="review-date">${review.date}</span>
+      </div>
+      <div class="review-stars">${generateStars(review.rating)}</div>
+      <p class="review-text">${review.comment}</p>
+    </div>
+  `).join('');
+}
+
+function submitProductReview() {
+  const name = document.getElementById('pdReviewName').value;
+  const rating = document.getElementById('pdReviewRating').value;
+  const comment = document.getElementById('pdReviewComment').value;
+  const productName = document.getElementById('pdName').textContent;
+  
+  if (!name || !comment) {
+    showToast('Please fill all fields', 'error');
+    return;
+  }
+  
+  const newReview = {
+    name,
+    rating: parseInt(rating),
+    comment,
+    date: "Just now"
+  };
+  
+  // Save to local storage
+  const key = `reviews_${productName}`;
+  const existing = JSON.parse(localStorage.getItem(key)) || [];
+  existing.unshift(newReview);
+  localStorage.setItem(key, JSON.stringify(existing));
+  
+  showToast('Review submitted successfully!', 'success');
+  
+  // Reset form
+  document.getElementById('pdReviewForm').reset();
+  
+  // Reload reviews
+  loadProductReviews(productName);
 }
 
 function closeProductDetail() {

@@ -99,6 +99,7 @@ function signUp() {
 
 function skipLogin() {
   closeLoginModal();
+  sessionStorage.setItem('skippedLogin', 'true');
   showToast('You can continue shopping as a guest', 'info');
 }
 
@@ -128,6 +129,19 @@ function resetPassword() {
   } else {
     if (errorMsg) errorMsg.textContent = 'Username not found';
     if (successMsg) successMsg.textContent = '';
+  }
+}
+
+// Check login status on page load
+function checkLoginOnLoad() {
+  const currentUser = localStorage.getItem('currentUser');
+  const hasSkipped = sessionStorage.getItem('skippedLogin');
+  
+  if (!currentUser && !hasSkipped) {
+    // Small delay to ensure UI is ready
+    setTimeout(() => {
+      openLoginModal();
+    }, 1000);
   }
 }
 

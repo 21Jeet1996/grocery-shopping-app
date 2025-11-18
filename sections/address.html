@@ -1,0 +1,59 @@
+    <section id="addressPage" style="display:none;">
+      <div class="address-page-container">
+        <button class="back-to-categories-btn" onclick="closeAddressPage()">← Back</button>
+        <h2>Add Delivery Address</h2>
+        <form id="addressForm" onsubmit="event.preventDefault(); saveAddressFromForm();">
+          <div class="address-form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="addrFullName" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="tel" id="addrPhone" placeholder="10-digit mobile" required>
+            </div>
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" id="addrPincode" placeholder="Pincode" required>
+            </div>
+            <div class="form-group">
+              <label>Address Line 1</label>
+              <input type="text" id="addrLine1" placeholder="House no., building, street" required>
+            </div>
+            <div class="form-group">
+              <label>Address Line 2</label>
+              <input type="text" id="addrLine2" placeholder="Area, locality">
+            </div>
+            <div class="form-group">
+              <label>Landmark</label>
+              <input type="text" id="addrLandmark" placeholder="Nearby landmark">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="addrCity" placeholder="City" required>
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="addrState" placeholder="State" required>
+            </div>
+            <div class="form-group">
+              <label>Address Type</label>
+              <select id="addrType">
+                <option>Home</option>
+                <option>Work</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="addrDefault"> Set as default address
+              </label>
+            </div>
+          </div>
+          <div class="address-actions">
+            <button type="submit" class="save-btn">Save Address</button>
+            <button type="button" class="back-btn" onclick="closeAddressPage()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>

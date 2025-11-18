@@ -7,7 +7,10 @@ function toggleChatbot() {
   const chatbotToggle = document.getElementById('chatbotToggle');
   
   if (chatbotWindow && chatbotToggle) {
-    if (chatbotWindow.style.display === 'none' || !chatbotWindow.style.display) {
+    // Check current computed style or inline style
+    const isVisible = chatbotWindow.style.display === 'flex' || getComputedStyle(chatbotWindow).display === 'flex';
+    
+    if (!isVisible) {
       chatbotWindow.style.display = 'flex';
       chatbotToggle.style.display = 'none';
     } else {
@@ -15,6 +18,14 @@ function toggleChatbot() {
       chatbotToggle.style.display = 'flex';
     }
   }
+}
+
+// Expose close function specifically for the close button
+function closeChatbot() {
+  const chatbotWindow = document.getElementById('chatbotWindow');
+  const chatbotToggle = document.getElementById('chatbotToggle');
+  if (chatbotWindow) chatbotWindow.style.display = 'none';
+  if (chatbotToggle) chatbotToggle.style.display = 'flex';
 }
 
 function sendChatbotMessage() {

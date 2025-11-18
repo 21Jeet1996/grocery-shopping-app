@@ -1,0 +1,189 @@
+  <div id="miniCartBar" class="mini-cart-bar" style="display:none;">
+    <div class="mini-cart-info">🛒 <span id="miniCartCount">0 items</span> • ₹<span id="miniCartTotal">0.00</span> • <span id="miniCartSlot">Express 10–20 min</span></div>
+    <button class="mini-cart-checkout" onclick="document.querySelector('.checkout-btn-zepto')?.click()">Checkout</button>
+  </div>
+
+  <!-- ✅ Login/Signup Modal with Tabs -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      
+      <!-- Tab Navigation -->
+      <div class="tab-container">
+        <button class="tab-button active" onclick="switchTab('login')" id="loginTab">Login</button>
+        <button class="tab-button" onclick="switchTab('signup')" id="signupTab">Sign Up</button>
+      </div>
+
+      <!-- Login Tab Content -->
+      <div id="loginTabContent" class="tab-content active">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="event.preventDefault(); login();">
+          <input type="text" id="loginUsername" placeholder="Username" required>
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <a href="#" onclick="showForgotPassword(); return false;" class="forgot-password-link">Forgot Password?</a>
+          <button type="submit">Login</button>
+          <button type="button" class="skip-btn" onclick="skipLogin()">Skip & Continue Shopping</button>
+          <p id="login-error-msg" class="error-msg"></p>
+        </form>
+      </div>
+
+      <!-- Signup Tab Content -->
+      <div id="signupTabContent" class="tab-content">
+        <h2>Sign Up</h2>
+        <form id="signupForm" onsubmit="event.preventDefault(); signUp();">
+          <input type="text" id="signupUsername" placeholder="Username" required>
+          <input type="password" id="signupPassword" placeholder="Password" required>
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+          <button type="submit">Sign Up</button>
+          <button type="button" class="skip-btn" onclick="skipLogin()">Skip & Continue Shopping</button>
+          <p id="signup-error-msg" class="error-msg"></p>
+        </form>
+      </div>
+
+      <!-- Forgot Password Tab Content -->
+      <div id="forgotPasswordTabContent" class="tab-content">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm" onsubmit="event.preventDefault(); resetPassword();">
+          <input type="text" id="forgotUsername" placeholder="Enter your username" required>
+          <button type="submit">Reset Password</button>
+          <button type="button" class="back-btn" onclick="switchTab('login')">Back to Login</button>
+          <p id="forgot-error-msg" class="error-msg"></p>
+          <p id="forgot-success-msg" class="success-msg"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- ✅ Payment Options Modal -->
+  <div id="paymentOptionsModal" class="modal">
+    <div class="modal-content payment-modal">
+      <span class="close" onclick="closePaymentOptions()">&times;</span>
+      
+      <div class="payment-header">
+        <h2>Select Payment Method</h2>
+        <div class="order-summary">
+          <p>Total Amount: <strong>₹<span id="paymentTotal">0.00</span></strong></p>
+        </div>
+      </div>
+
+      <div class="payment-methods">
+        <div class="payment-option" onclick="selectPaymentMethod('upi')">
+          <div class="payment-icon">📱</div>
+          <div class="payment-info">
+            <h3>UPI</h3>
+            <p>Pay with UPI apps (PhonePe, GPay, Paytm)</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('card')">
+          <div class="payment-icon">💳</div>
+          <div class="payment-info">
+            <h3>Credit/Debit Card</h3>
+            <p>Visa, Mastercard, Ruppay</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('netbanking')">
+          <div class="payment-icon">🏦</div>
+          <div class="payment-info">
+            <h3>Net Banking</h3>
+            <p>Pay from your bank account</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('wallet')">
+          <div class="payment-icon">👛</div>
+          <div class="payment-info">
+            <h3>Wallets</h3>
+            <p>Paytm Wallet, Amazon Pay, etc.</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+
+        <div class="payment-option" onclick="selectPaymentMethod('cod')">
+          <div class="payment-icon">💵</div>
+          <div class="payment-info">
+            <h3>Cash on Delivery</h3>
+            <p>Pay when you receive your order</p>
+          </div>
+          <div class="payment-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Payment Details Modal -->
+  <div id="paymentDetailsModal" class="modal">
+    <div class="modal-content payment-details-modal">
+      <span class="close" onclick="closePaymentDetails()">&times;</span>
+      
+      <div class="payment-details-header">
+        <button class="back-btn" onclick="backToPaymentOptions()">← Back</button>
+        <h2 id="paymentDetailsTitle">Payment Details</h2>
+      </div>
+
+      <div id="upiPaymentForm" class="payment-form" style="display:none;">
+        <h3>Enter UPI ID</h3>
+        <input type="text" id="upiId" placeholder="yourupi@paytm" class="payment-input">
+        <button class="pay-btn" onclick="processUPIPayment()">Pay ₹<span id="upiAmount">0.00</span></button>
+      </div>
+
+      <div id="cardPaymentForm" class="payment-form" style="display:none;">
+        <h3>Card Details</h3>
+        <input type="text" id="cardNumber" placeholder="Card Number" maxlength="19" class="payment-input">
+        <div class="card-row">
+          <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" class="payment-input half">
+          <input type="text" id="cardCvv" placeholder="CVV" maxlength="3" class="payment-input half">
+        </div>
+        <input type="text" id="cardName" placeholder="Cardholder Name" class="payment-input">
+        <button class="pay-btn" onclick="processCardPayment()">Pay ₹<span id="cardAmount">0.00</span></button>
+      </div>
+
+      <div id="netbankingPaymentForm" class="payment-form" style="display:none;">
+        <h3>Select Bank</h3>
+        <select id="bankSelect" class="payment-input">
+          <option value="">Choose your bank</option>
+          <option value="sbi">State Bank of India</option>
+          <option value="hdfc">HDFC Bank</option>
+          <option value="icici">ICICI Bank</option>
+          <option value="pnb">Punjab National Bank</option>
+          <option value="axis">Axis Bank</option>
+        </select>
+        <button class="pay-btn" onclick="processNetBankingPayment()">Pay ₹<span id="netbankingAmount">0.00</span></button>
+      </div>
+
+      <div id="walletPaymentForm" class="payment-form" style="display:none;">
+        <h3>Select Wallet</h3>
+        <div class="wallet-options">
+          <div class="wallet-option" onclick="selectWallet('paytm', this)">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300479B'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E" alt="Paytm">
+            <span>Paytm Wallet</span>
+          </div>
+          <div class="wallet-option" onclick="selectWallet('amazon', this)">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF9900'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E" alt="Amazon Pay">
+            <span>Amazon Pay</span>
+          </div>
+        </div>
+        <button class="pay-btn" onclick="processWalletPayment()" style="display:none;">Pay ₹<span id="walletAmount">0.00</span></button>
+      </div>
+
+      <div id="codPaymentForm" class="payment-form" style="display:none;">
+        <div class="cod-summary">
+          <h3>Cash on Delivery</h3>
+          <p>You will pay ₹<span id="codAmount">0.00</span> when your order is delivered.</p>
+          <div class="cod-info">
+            <p>• Please keep exact change ready</p>
+            <p>• Delivery partner will collect payment</p>
+            <p>• You can check the order before paying</p>
+          </div>
+        </div>
+        <button class="pay-btn" onclick="processCODPayment()">Confirm Order</button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,131 @@
+/* ===============================
+   🔹 CATEGORIES - ZEPTO STYLE SIDEBAR
+================================ */
+#categories {
+  padding: 0;
+  background: #fff;
+  height: calc(100vh - 70px); /* Adjust based on header height */
+  overflow: hidden;
+}
+
+.categories-layout {
+  display: flex;
+  height: 100%;
+}
+
+/* Sidebar */
+.categories-sidebar {
+  width: 25%; /* Sidebar width */
+  max-width: 300px;
+  min-width: 120px;
+  background: #f8f9fa;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.categories-sidebar h3 {
+  padding: 20px;
+  margin: 0;
+  font-size: 18px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+  position: sticky;
+  top: 0;
+}
+
+#categorySidebarList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-category-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.2s;
+  gap: 12px;
+}
+
+.sidebar-category-item:hover {
+  background: #fff;
+}
+
+.sidebar-category-item.active {
+  background: #fff;
+  border-left-color: #4A5FC1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.sidebar-cat-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+}
+
+.sidebar-cat-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+.sidebar-category-item.active .sidebar-cat-name {
+  color: #4A5FC1;
+  font-weight: 700;
+}
+
+/* Content Area */
+.categories-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+#activeCategoryTitle {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.products-grid-sidebar {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .categories-sidebar {
+    width: 80px; /* Icon only view */
+    min-width: 80px;
+  }
+  
+  .sidebar-cat-name {
+    display: none; /* Hide text on small screens or keep customized */
+    font-size: 10px;
+    text-align: center;
+  }
+  
+  .sidebar-category-item {
+    flex-direction: column;
+    padding: 10px 5px;
+    text-align: center;
+    gap: 5px;
+  }
+  
+  .sidebar-cat-name {
+    display: block; /* Re-enable for vertical stacking */
+  }
+  
+  .categories-sidebar h3 {
+    display: none;
+  }
+}

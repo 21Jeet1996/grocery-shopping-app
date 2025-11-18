@@ -1,0 +1,20 @@
+  <div id="chatbot" class="chatbot-container">
+    <div id="chatbotToggle" class="chatbot-toggle" onclick="toggleChatbot()">
+      <span>💬</span>
+    </div>
+    <div id="chatbotWindow" class="chatbot-window">
+      <div class="chatbot-header">
+        <h3>Grain's Mart Support</h3>
+        <button onclick="closeChatbot()" class="chatbot-close">×</button>
+      </div>
+      <div id="chatbotMessages" class="chatbot-messages">
+        <div class="chatbot-message bot">
+          <p>Hello! 👋 How can I help you today?</p>
+        </div>
+      </div>
+      <div class="chatbot-input-container">
+        <input type="text" id="chatbotInput" placeholder="Type your message..." onkeypress="handleChatbotKeyPress(event)">
+        <button onclick="sendChatbotMessage()">Send</button>
+      </div>
+    </div>
+  </div>

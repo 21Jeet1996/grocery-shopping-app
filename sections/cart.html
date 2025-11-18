@@ -1,0 +1,126 @@
+<section id="cart" style="display:none;">
+  <!-- Cart Header -->
+  <div class="cart-header-enhanced">
+    <div class="cart-header-left">
+      <div class="cart-icon-wrapper">
+        <span class="cart-icon">🛒</span>
+      </div>
+      <div class="cart-title-section">
+        <h1 class="cart-title">Your Shopping Cart</h1>
+        <p class="cart-subtitle">Review your items before checkout</p>
+      </div>
+    </div>
+    <div class="cart-header-right">
+      <div class="cart-item-count-badge" id="cart-item-count-text">0 items</div>
+      <button class="continue-shopping-btn" onclick="navigateToSection('#products')">
+        <span class="btn-icon">←</span>
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+  
+  <!-- Cart Main Content -->
+  <div class="cart-main-container">
+    <!-- Cart Items Section -->
+    <div class="cart-items-section">
+      <div id="cart-container" class="cart-items-container">
+        <div id="cart-items-list" class="cart-items-list">
+          <!-- Cart items will be dynamically added here -->
+        </div>
+        
+        <!-- Empty Cart State -->
+        <div id="empty-cart" class="empty-cart-state">
+          <div class="empty-cart-illustration">
+            <div class="empty-cart-circle">
+              <span class="empty-cart-icon">🛒</span>
+            </div>
+          </div>
+          <h3 class="empty-cart-title">Your cart is empty</h3>
+          <p class="empty-cart-description">Looks like you haven't added anything to your cart yet</p>
+          <button class="shop-now-btn-enhanced" onclick="navigateToSection('#products')">
+            <span class="btn-icon">🛍️</span>
+            Start Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cart Summary Section -->
+    <div class="cart-summary-section">
+      <div class="cart-summary-card-enhanced">
+        <div class="summary-header">
+          <h3 class="summary-title">Order Summary</h3>
+          <div class="summary-badge">
+            <span class="badge-icon">✓</span>
+            Secure Checkout
+          </div>
+        </div>
+        
+        <div class="summary-content">
+          <div class="summary-row">
+            <span class="summary-label">Subtotal</span>
+            <span class="summary-value" id="cart-subtotal">₹0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Discount</span>
+            <span class="summary-value discount-value" id="discount-amount">-₹0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Delivery Charges</span>
+            <span class="summary-value delivery-value" id="delivery-charges">FREE</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row total-row">
+            <span class="total-label">Total Amount</span>
+            <span class="total-value">
+              <span class="currency-symbol">₹</span>
+              <span id="cart-total">0.00</span>
+            </span>
+          </div>
+          
+          <!-- Promo Code Section -->
+          <div class="promo-section">
+            <div class="promo-header">
+              <span class="promo-icon">🎫</span>
+              <span class="promo-title">Have a promo code?</span>
+            </div>
+            <div class="promo-input-group">
+              <input type="text" id="promo-code-input" class="promo-input" placeholder="Enter offer code">
+              <button class="promo-apply-btn" onclick="applyOffer(document.getElementById('promo-code-input').value)">Apply</button>
+            </div>
+            <div class="promo-hint">Try: FRUIT50, DRINK3, DAIRY20</div>
+          </div>
+          
+          <!-- Delivery Info -->
+          <div class="delivery-info">
+            <div class="delivery-item">
+              <span class="delivery-icon">🚚</span>
+              <span class="delivery-text">Express Delivery</span>
+            </div>
+            <div class="delivery-item">
+              <span class="delivery-icon">💰</span>
+              <span class="delivery-text">Cash on Delivery Available</span>
+            </div>
+          </div>
+          
+          <!-- Checkout Button -->
+          <button class="checkout-btn-enhanced" onclick="proceedToCheckout()">
+            <span class="btn-text">Proceed to Checkout</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          
+          <div class="secure-badges">
+            <div class="secure-badge">
+              <span class="badge-icon">🔒</span>
+              <span class="badge-text">Secure Payment</span>
+            </div>
+            <div class="secure-badge">
+              <span class="badge-icon">🛡️</span>
+              <span class="badge-text">100% Authentic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

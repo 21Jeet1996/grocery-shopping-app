@@ -1,0 +1,136 @@
+    <section id="trackOrder" style="display:none;">
+      <div class="track-order-container">
+        <button class="back-to-profile-btn" onclick="closeTrackOrder()">← Back to Profile</button>
+        
+        <div class="track-order-header">
+          <h2>📍 Track Your Order</h2>
+          <p>Get real-time updates on your order status</p>
+        </div>
+
+        <!-- Order Search Section -->
+        <div class="order-search-section">
+          <div class="search-box-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="orderSearchTrackInput" placeholder="Enter Order ID (e.g., ORD1234567890)" onkeyup="searchOrder(event)">
+            <button class="search-btn" onclick="searchOrder()">Search</button>
+          </div>
+        </div>
+
+        <!-- Order Details Section -->
+        <div id="orderDetailsSection" class="order-details-section" style="display:none;">
+          <div class="order-summary-card">
+            <div class="order-header-info">
+              <div class="order-id-section">
+                <h3 id="trackingOrderId">ORD1234567890</h3>
+                <span id="orderDate" class="order-date">Placed on 16 Nov 2025</span>
+              </div>
+              <div class="order-status-badge" id="orderStatusBadge">
+                <span class="status-text">In Transit</span>
+              </div>
+            </div>
+
+            <div class="order-items-summary">
+              <div class="item-count">
+                <span class="count-number">3</span>
+                <span class="count-label">Items</span>
+              </div>
+              <div class="order-total">
+                <span class="total-label">Total Amount</span>
+                <span class="total-amount" id="trackingOrderTotal">₹299.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Address -->
+          <div class="delivery-address-card">
+            <h4>📍 Delivery Address</h4>
+            <div id="deliveryAddress" class="address-details">
+              <p class="address-name">John Doe</p>
+              <p class="address-text">123 Main St, Apt 4B, Mumbai, Maharashtra 400001</p>
+              <p class="address-phone">📞 +91 9876543210</p>
+            </div>
+          </div>
+
+          <!-- Order Timeline -->
+          <div class="order-timeline">
+            <h4>📦 Order Status</h4>
+            <div class="timeline-container" id="orderTimeline">
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Order Placed</h5>
+                  <p class="timeline-time">16 Nov, 2:30 PM</p>
+                  <p class="timeline-desc">Your order has been successfully placed</p>
+                </div>
+              </div>
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Order Confirmed</h5>
+                  <p class="timeline-time">16 Nov, 2:35 PM</p>
+                  <p class="timeline-desc">Order confirmed and being prepared</p>
+                </div>
+              </div>
+              <div class="timeline-item active">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Out for Delivery</h5>
+                  <p class="timeline-time">16 Nov, 3:15 PM</p>
+                  <p class="timeline-desc">Your order is on the way</p>
+                </div>
+              </div>
+              <div class="timeline-item pending">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h5>Delivered</h5>
+                  <p class="timeline-time">Expected by 4:30 PM</p>
+                  <p class="timeline-desc">Order will be delivered soon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Partner Info -->
+          <div id="deliveryPartnerSection" class="delivery-partner-card" style="display:none;">
+            <h4>🚚 Delivery Partner</h4>
+            <div class="partner-info">
+              <div class="partner-details">
+                <img src="https://picsum.photos/seed/delivery/50/50" alt="Delivery Partner" class="partner-avatar">
+                <div class="partner-text">
+                  <p class="partner-name" id="deliveryPartnerName">Raj Kumar</p>
+                  <p class="partner-vehicle" id="deliveryPartnerVehicle">Honda Activa</p>
+                  <p class="partner-rating">⭐ 4.8</p>
+                </div>
+              </div>
+              <div class="partner-actions">
+                <button class="call-btn" onclick="callDeliveryPartner()">📞 Call</button>
+                <button class="track-btn" onclick="trackDeliveryLocation()">📍 Live Track</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Items -->
+          <div class="order-items-card">
+            <h4>🛍️ Order Items</h4>
+            <div id="trackingOrderItems" class="tracking-items-list">
+              <!-- Items will be dynamically loaded here -->
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="order-actions">
+            <button class="action-btn secondary" onclick="downloadInvoice()">📄 Download Invoice</button>
+            <button class="action-btn secondary" onclick="contactSupport()">💬 Need Help?</button>
+            <button class="action-btn primary" onclick="reorderItems()">🔄 Reorder</button>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="trackOrderEmptyState" class="empty-state-container">
+          <div class="empty-icon">📦</div>
+          <h3>No Order Found</h3>
+          <p>Enter your order ID to track your delivery status</p>
+          <p class="empty-hint">You can find your order ID in your email or in the Profile section under Current Orders</p>
+        </div>
+      </div>
+    </section>

@@ -31,7 +31,19 @@ function updateAutocomplete(query) {
     const item = document.createElement('div');
     item.className = 'autocomplete-item';
     item.dataset.index = idx;
-    item.innerHTML = `<img src="${getProductImage(m)}" onerror="this.src='${createPlaceholderSVG(m.name,40,32)}'"/><div><strong>${m.name}</strong><div style="font-size:12px;color:#666">${m.category} • ₹${m.price}</div></div>`;
+    item.innerHTML = `
+      <div class="autocomplete-image">
+        <img src="${getProductImage(m)}" onerror="this.src='${createPlaceholderSVG(m.name,40,32)}'"/>
+      </div>
+      <div class="autocomplete-info">
+        <div class="autocomplete-name">${m.name}</div>
+        <div class="autocomplete-meta">
+          <span class="ac-category">${m.category}</span>
+          <span class="ac-dot">•</span>
+          <span class="ac-price">₹${m.price}</span>
+        </div>
+      </div>
+    `;
     item.addEventListener('click', () => {
       document.getElementById('search-bar').value = m.name;
       ac.style.display = 'none';

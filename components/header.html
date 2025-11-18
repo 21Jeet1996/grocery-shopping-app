@@ -1,0 +1,37 @@
+  <header>
+    <div class="header-container">
+      <div class="header-row-top">
+        <div class="header-left">
+          <div class="logo">
+            <h1>GRAIN'S MART</h1>
+            <p class="tagline">Fresh Groceries Delivered</p>
+          </div>
+          <div class="deliver-to">
+            <span>Deliver to:</span>
+            <span id="deliverToText">Set location</span>
+            <button class="change-location-btn" onclick="chooseDeliveryLocation()">Change</button>
+          </div>
+        </div>
+        <div class="header-center">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-bar" placeholder="Search products or categories..." onkeyup="searchProducts()">
+          </div>
+        </div>
+      </div>
+
+      <div class="header-row-bottom">
+        <nav class="main-nav">
+          <a href="#home" class="nav-link">🏠 Home</a>
+          <a href="#categories" class="nav-link">📦 Categories</a>
+          <a href="#cart" class="nav-link cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+          <a href="#profile" id="profileNav" class="nav-link">👤 Profile</a>
+        </nav>
+        <div class="auth-links" id="authLinks">
+          <a href="#" onclick="openLoginModal(); return false;" class="login-btn-header">Login</a>
+        </div>
+      </div>
+
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </header>

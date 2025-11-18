@@ -1,0 +1,190 @@
+/* ===============================
+   🔹 MODALS & PAYMENT
+================================ */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  animation: fadeIn 0.4s ease;
+  overflow: hidden;
+}
+
+/* Tab Container */
+.tab-container {
+  display: flex;
+  background: #f5f5f5;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-button:hover {
+  background: #e8e8e8;
+  color: #2e8b57;
+}
+
+.tab-button.active {
+  color: #2e8b57;
+  background: white;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2e8b57;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content h2 {
+  margin: 0 0 25px 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.tab-content input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.tab-content input:focus {
+  outline: none;
+  border-color: #2e8b57;
+  box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.tab-content button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0 10px 0;
+  background: #2e8b57;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tab-content button[type="submit"]:hover {
+  background: #256d45;
+}
+
+.error-msg {
+  color: #e53935;
+  font-size: 14px;
+  margin-top: 10px;
+  min-height: 20px;
+  text-align: left;
+}
+
+.forgot-password-link {
+  text-align: right;
+  display: block;
+  color: #4A5FC1;
+  text-decoration: none;
+  font-size: 14px;
+  margin: -5px 0 15px 0;
+  transition: color 0.2s;
+}
+
+.skip-btn {
+  width: 100%;
+  background: transparent;
+  color: #666;
+  border: 2px solid #e0e0e0;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 10px; 
+  right: 15px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close:hover {
+  color: #e53935;
+}
+
+/* Payment Modals */
+.payment-modal { max-width: 500px; width: 90%; }
+.payment-header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e0e0e0; }
+.order-summary strong { color: #4A5FC1; font-size: 20px; }
+
+.payment-methods { display: flex; flex-direction: column; gap: 12px; }
+.payment-option { display: flex; align-items: center; padding: 16px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; background: white; }
+.payment-option:hover { border-color: #4A5FC1; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74, 95, 193, 0.15); }
+.payment-icon { font-size: 24px; margin-right: 16px; width: 40px; text-align: center; }
+.payment-info h3 { margin: 0 0 4px 0; font-size: 16px; font-weight: 600; color: #1a1a1a; font-weight: 700; }
+.payment-info p { margin: 0; font-size: 14px; color: #666; font-weight: 500; }
+
+.payment-details-modal { max-width: 450px; width: 90%; }
+.payment-input { width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; margin-bottom: 16px; box-sizing: border-box; }
+.payment-input:focus { border-color: #4A5FC1; }
+.pay-btn { width: 100%; background: linear-gradient(135deg, #4A5FC1 0%, #5A3A87 100%); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 20px; }
+
+@media (max-width: 768px) {
+  .modal-content { width: 90%; }
+  .tab-content { padding: 20px; }
+}

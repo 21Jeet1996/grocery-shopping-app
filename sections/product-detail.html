@@ -1,0 +1,113 @@
+<section id="productDetail" style="display:none;">
+  <div class="product-detail-modern">
+    <button class="modern-back-btn" onclick="closeProductDetail()">← Back to Categories</button>
+    
+    <div class="product-detail-grid">
+      <!-- Gallery -->
+      <div class="product-detail-gallery">
+        <div class="main-image-container">
+          <div id="pdBadges" class="product-detail-badges"></div>
+          <img id="pdImage" src="" alt="Product Image" class="product-detail-main-image">
+        </div>
+        <div class="image-thumbnails">
+          <div class="thumbnail active"><img id="pdThumb1" src="" alt="Thumbnail 1"></div>
+          <div class="thumbnail"><img id="pdThumb2" src="" alt="Thumbnail 2"></div>
+          <div class="thumbnail"><img id="pdThumb3" src="" alt="Thumbnail 3"></div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-detail-info-modern">
+        <h1 id="pdName" class="product-detail-title">Product Name</h1>
+        
+        <div id="pdRating" class="product-detail-rating">
+          <!-- Rating will be injected here -->
+        </div>
+
+        <div class="product-detail-pricing">
+          <span id="pdPrice" class="current-price">₹0</span>
+          <span id="pdOriginalPrice" class="original-price">₹0</span>
+          <span id="pdDiscount" class="discount-badge">0% OFF</span>
+        </div>
+
+        <div class="product-detail-highlights">
+          <h3>Highlights</h3>
+          <ul>
+            <li>Freshly Sourced</li>
+            <li>Premium Quality</li>
+            <li>Best Price Guarantee</li>
+          </ul>
+        </div>
+
+        <div class="product-detail-description">
+          <h3>Description</h3>
+          <p id="pdDesc">Product description goes here.</p>
+        </div>
+
+        <div class="product-detail-quantity">
+          <label>Quantity</label>
+          <div class="qty-controls-modern">
+            <button id="pdQtyMinus" class="qty-btn-modern">-</button>
+            <input type="text" id="pdQtyInput" value="1" class="qty-input-modern" readonly>
+            <button id="pdQtyPlus" class="qty-btn-modern">+</button>
+          </div>
+        </div>
+
+        <div class="product-detail-cta">
+          <button id="pdAdd" class="cta-add-cart">🛒 Add to Cart</button>
+          <button id="pdBuy" class="cta-buy-now">⚡ Buy Now</button>
+        </div>
+
+        <div class="product-detail-trust">
+          <div class="trust-item">
+            <span class="trust-icon">🚚</span>
+            <div>
+              <strong>Free Delivery</strong>
+              <p>For orders above ₹500</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🛡️</span>
+            <div>
+              <strong>Secure Payment</strong>
+              <p>100% Safe Transactions</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="product-detail-reviews-modern">
+          <h2>Ratings & Reviews</h2>
+          
+          <div class="reviews-summary">
+            <div class="rating-overview">
+              <div class="avg-rating">4.5</div>
+              <div class="stars">★★★★☆</div>
+              <div class="rating-count">120 Ratings & 45 Reviews</div>
+            </div>
+          </div>
+
+          <div class="review-form-modern">
+            <h3>Write a Review</h3>
+            <form id="pdReviewForm" onsubmit="event.preventDefault(); submitProductReview()">
+              <input type="text" id="pdReviewName" placeholder="Your Name" required>
+              <select id="pdReviewRating">
+                <option value="5">★★★★★ Excellent (5)</option>
+                <option value="4">★★★★☆ Good (4)</option>
+                <option value="3">★★★☆☆ Average (3)</option>
+                <option value="2">★★☆☆☆ Poor (2)</option>
+                <option value="1">★☆☆☆☆ Terrible (1)</option>
+              </select>
+              <textarea id="pdReviewComment" placeholder="Share your experience..." rows="4" required></textarea>
+              <button type="submit" class="submit-review-btn">Submit Review</button>
+            </form>
+          </div>
+          
+          <div id="pdReviewsList" class="reviews-list">
+            <!-- Reviews will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

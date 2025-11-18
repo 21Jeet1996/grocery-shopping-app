@@ -1,0 +1,16 @@
+/* ===============================
+   🔹 MAIN STYLE
+================================ */
+@import "base.css";
+@import "utils.css";
+@import "header.css";
+@import "home.css";
+@import "categories.css";
+@import "products.css";
+@import "cart.css";
+@import "profile.css";
+@import "modals.css";
+@import "chatbot.css";
+@import "footer.css";
+
+/* Any remaining overrides or page-specific styles can go here */
