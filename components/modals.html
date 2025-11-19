@@ -5,50 +5,83 @@
 
   <!-- ✅ Login/Signup Modal with Tabs -->
   <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeLoginModal()">&times;</span>
+    <div class="modal-content login-modal-card">
+      <button class="close-modal-btn" onclick="closeLoginModal()">×</button>
       
+      <!-- Modal Header / Brand -->
+      <div class="modal-brand-header">
+        <h2>Welcome to Grain's Mart</h2>
+        <p>Your daily groceries, delivered in minutes.</p>
+      </div>
+
       <!-- Tab Navigation -->
-      <div class="tab-container">
-        <button class="tab-button active" onclick="switchTab('login')" id="loginTab">Login</button>
-        <button class="tab-button" onclick="switchTab('signup')" id="signupTab">Sign Up</button>
+      <div class="tab-container-modern">
+        <button class="tab-btn-modern active" onclick="switchTab('login')" id="loginTab">Login</button>
+        <button class="tab-btn-modern" onclick="switchTab('signup')" id="signupTab">Sign Up</button>
       </div>
 
       <!-- Login Tab Content -->
-      <div id="loginTabContent" class="tab-content active">
-        <h2>Login</h2>
+      <div id="loginTabContent" class="tab-content-modern active">
         <form id="loginForm" onsubmit="event.preventDefault(); login();">
-          <input type="text" id="loginUsername" placeholder="Username" required>
-          <input type="password" id="loginPassword" placeholder="Password" required>
-          <a href="#" onclick="showForgotPassword(); return false;" class="forgot-password-link">Forgot Password?</a>
-          <button type="submit">Login</button>
-          <button type="button" class="skip-btn" onclick="skipLogin()">Skip & Continue Shopping</button>
-          <p id="login-error-msg" class="error-msg"></p>
+          <div class="input-group-modern">
+            <span class="input-icon">👤</span>
+            <input type="text" id="loginUsername" placeholder="Username" required>
+          </div>
+          <div class="input-group-modern">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+          </div>
+          
+          <div class="form-actions-row">
+            <label class="remember-me">
+              <input type="checkbox"> Remember me
+            </label>
+            <a href="#" onclick="showForgotPassword(); return false;" class="forgot-pass-link">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="auth-submit-btn">Login</button>
+          <button type="button" class="skip-auth-btn" onclick="skipLogin()">Skip for now</button>
+          <p id="login-error-msg" class="error-message"></p>
         </form>
       </div>
 
       <!-- Signup Tab Content -->
-      <div id="signupTabContent" class="tab-content">
-        <h2>Sign Up</h2>
+      <div id="signupTabContent" class="tab-content-modern">
         <form id="signupForm" onsubmit="event.preventDefault(); signUp();">
-          <input type="text" id="signupUsername" placeholder="Username" required>
-          <input type="password" id="signupPassword" placeholder="Password" required>
-          <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-          <button type="submit">Sign Up</button>
-          <button type="button" class="skip-btn" onclick="skipLogin()">Skip & Continue Shopping</button>
-          <p id="signup-error-msg" class="error-msg"></p>
+          <div class="input-group-modern">
+            <span class="input-icon">👤</span>
+            <input type="text" id="signupUsername" placeholder="Choose a Username" required>
+          </div>
+          <div class="input-group-modern">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="signupPassword" placeholder="Create Password" required>
+          </div>
+          <div class="input-group-modern">
+            <span class="input-icon">🔐</span>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+          </div>
+          
+          <button type="submit" class="auth-submit-btn">Create Account</button>
+          <button type="button" class="skip-auth-btn" onclick="skipLogin()">Skip for now</button>
+          <p id="signup-error-msg" class="error-message"></p>
         </form>
       </div>
 
       <!-- Forgot Password Tab Content -->
-      <div id="forgotPasswordTabContent" class="tab-content">
-        <h2>Forgot Password</h2>
+      <div id="forgotPasswordTabContent" class="tab-content-modern">
+        <div class="forgot-header">
+          <h3>Reset Password</h3>
+          <p>Enter your username to receive recovery instructions.</p>
+        </div>
         <form id="forgotPasswordForm" onsubmit="event.preventDefault(); resetPassword();">
-          <input type="text" id="forgotUsername" placeholder="Enter your username" required>
-          <button type="submit">Reset Password</button>
-          <button type="button" class="back-btn" onclick="switchTab('login')">Back to Login</button>
-          <p id="forgot-error-msg" class="error-msg"></p>
-          <p id="forgot-success-msg" class="success-msg"></p>
+          <div class="input-group-modern">
+            <span class="input-icon">📧</span>
+            <input type="text" id="forgotUsername" placeholder="Enter your username" required>
+          </div>
+          <button type="submit" class="auth-submit-btn">Reset Password</button>
+          <button type="button" class="back-to-login-btn" onclick="switchTab('login')">Back to Login</button>
+          <p id="forgot-error-msg" class="error-message"></p>
+          <p id="forgot-success-msg" class="success-message"></p>
         </form>
       </div>
     </div>

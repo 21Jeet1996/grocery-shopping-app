@@ -1,16 +1,7 @@
 /* ===============================
    🔹 PROFILE & USER - MODERN PREMIUM DESIGN
    ================================ */
-:root {
-  --primary-color: #4f46e5; /* Indigo */
-  --primary-light: #eef2ff;
-  --text-dark: #111827;
-  --text-gray: #6b7280;
-  --bg-gray: #f9fafb;
-  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --card-radius: 20px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* :root variables moved to base.css */
 
 #profile {
   padding: 20px;
@@ -865,8 +856,8 @@
 
 .logout-profile-btn {
   background: #fef2f2;
-  color: #ef4444;
-  border: none;
+  color: #b91c1c; /* WCAG AAA Contrast (Red 700) */
+  border: 1px solid #fca5a5; /* Subtle border for better definition */
   padding: 12px 30px;
   border-radius: 30px;
   font-weight: 700;
@@ -876,6 +867,8 @@
 
 .logout-profile-btn:hover {
   background: #fee2e2;
+  color: #991b1b; /* Red 800 on hover */
+  border-color: #f87171;
   transform: translateY(-2px);
 }
 

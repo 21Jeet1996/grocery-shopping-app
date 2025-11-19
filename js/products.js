@@ -122,8 +122,7 @@ function loadTopProducts() {
       </div>
     `;
     productDiv.addEventListener('click', () => {
-      showCategoryProducts(product.category);
-      document.querySelector('#categories').scrollIntoView({ behavior: 'smooth' });
+      openProductDetail(product.name);
     });
     homeProducts.appendChild(productDiv);
   });

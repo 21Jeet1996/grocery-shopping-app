@@ -174,7 +174,7 @@
 
 .product-original-price {
   font-size: 15px;
-  color: #999;
+  color: #757575; /* Darker gray for better contrast */
   text-decoration: line-through;
 }
 

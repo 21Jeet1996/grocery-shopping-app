@@ -251,12 +251,11 @@ header {
 
 .login-btn-header {
   background: white;
-  color: #4A5FC1;
+  color: #312e81; /* WCAG AAA Contrast (Indigo 900) */
   padding: 10px 20px;
   border-radius: 25px;
   font-weight: 600;
   transition: all 0.3s;
-  color: #3D4FA6; /* Contrast improvement */
   font-weight: 700;
 }
 
