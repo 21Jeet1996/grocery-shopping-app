@@ -15,7 +15,8 @@
         <div class="header-center">
           <div class="search-box">
             <span class="search-icon">🔍</span>
-            <input type="text" id="search-bar" placeholder="Search products or categories..." onkeyup="searchProducts()">
+            <input type="text" id="search-bar" placeholder="Search products or categories..." onkeyup="searchProducts()" onkeydown="handleSearchKeydown(event)">
+            <button class="voice-search-btn" id="voiceSearchBtn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
           </div>
         </div>
       </div>

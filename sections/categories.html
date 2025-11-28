@@ -10,7 +10,24 @@
 
         <!-- Main Content (Products) -->
         <div class="categories-content">
-          <h2 id="activeCategoryTitle">Select a Category</h2>
+          <!-- Category Header with Filters -->
+          <div class="category-header-row">
+            <div class="category-title-section">
+              <h2 id="activeCategoryTitle">Select a Category</h2>
+              <span class="product-count" id="productCountBadge"></span>
+            </div>
+            <div class="category-filters-section">
+              <button class="category-filter-btn" onclick="toggleCategoryFilterPanel()">
+                <span>⚙️</span>
+                <span>Filters</span>
+                <span class="filter-count-badge" id="filterCountBadge" style="display:none;">0</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Active Filters Tags -->
+          <div class="active-filter-tags" id="activeFilterTags"></div>
+          
           <div class="products" id="categoryProductsGrid">
             <!-- Products will be loaded here -->
           </div>

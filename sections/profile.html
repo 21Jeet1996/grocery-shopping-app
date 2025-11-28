@@ -62,8 +62,8 @@
               <span class="menu-arrow">›</span>
             </button>
             <button class="profile-menu-item" onclick="openProfilePage('about')">
-              <span class="menu-icon">⭐</span>
-              <span class="menu-text">Rate & Review App</span>
+              <span class="menu-icon">ℹ️</span>
+              <span class="menu-text">About</span>
               <span class="menu-arrow">›</span>
             </button>
           </div>
@@ -187,18 +187,113 @@
 
             <!-- About Tab -->
             <div id="profileAboutTab" class="profile-view-section">
-              <div class="review-form-modern">
-                <h3>Write a Review</h3>
-                <form id="appReviewForm" onsubmit="submitAppReview(event)">
-                  <input type="text" id="reviewName" placeholder="Your Name" required>
-                  <select id="reviewRating">
-                    <option value="5">★★★★★ Excellent</option>
-                    <option value="4">★★★★☆ Good</option>
-                    <option value="3">★★★☆☆ Average</option>
-                  </select>
-                  <textarea id="reviewComment" placeholder="Share your experience..." rows="4" required></textarea>
-                  <button type="submit" class="submit-review-btn">Submit Review</button>
-                </form>
+              <!-- Green Hero (left text, right illustration) -->
+              <div class="about-hero about-hero-green">
+                <div class="about-hero-left">
+                  <h2 class="about-hero-title">About Grain's Mart</h2>
+                  <p class="about-hero-subtitle">Connecting Farms to Families Since 2020</p>
+
+                  <div class="about-stats-row">
+                    <div class="about-stat">
+                      <div class="stat-number">50,000+</div>
+                      <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="about-stat">
+                      <div class="stat-number">100+</div>
+                      <div class="stat-label">Partner Farms</div>
+                    </div>
+                    <div class="about-stat">
+                      <div class="stat-number">24/7</div>
+                      <div class="stat-label">Fresh Delivery</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="about-hero-right">
+                  <div class="hero-illustration">
+                    <div class="hero-ring"></div>
+                    <div class="hero-center">🌾</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Our Story area: left text + highlights, right illustrative card -->
+              <div class="about-container about-story-layout">
+                <div class="story-left">
+                  <h3 class="section-title">Our Story</h3>
+                  <p class="story-paragraph">Grain's Mart began with a simple mission: to bridge the gap between local farmers and urban families. We source directly from farms, ensure quality checks, and deliver fresh groceries to your doorstep.</p>
+
+                  <div class="highlights-row">
+                    <div class="highlight-card">
+                      <div class="highlight-icon">🚜</div>
+                      <div class="highlight-text">Direct from Farm</div>
+                    </div>
+                    <div class="highlight-card">
+                      <div class="highlight-icon">✨</div>
+                      <div class="highlight-text">100% Quality Assured</div>
+                    </div>
+                    <div class="highlight-card">
+                      <div class="highlight-icon">🚚</div>
+                      <div class="highlight-text">Quick Delivery</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="story-right">
+                  <div class="story-illustration-card">
+                    <div class="plant-illustration">🌱</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Partners / Partners Details -->
+              <div class="about-container partners-section">
+                <h3 class="section-title">Our Partners</h3>
+                <p class="story-paragraph">We proudly work with a growing network of farms, cold-storage partners and logistics providers. Below are a few of our valued partners.</p>
+
+                <div class="partners-grid">
+                  <div class="partner-card"><div class="partner-logo">P1</div><div class="partner-name">Green Farms</div></div>
+                  <div class="partner-card"><div class="partner-logo">P2</div><div class="partner-name">Harvest Co.</div></div>
+                  <div class="partner-card"><div class="partner-logo">P3</div><div class="partner-name">FreshLogix</div></div>
+                  <div class="partner-card"><div class="partner-logo">P4</div><div class="partner-name">ColdChain Ltd</div></div>
+                </div>
+
+                <div class="partner-details-list">
+                  <div class="partner-detail-item">
+                    <div class="pd-left"><strong>Green Farms</strong><div class="pd-sub">Organic vegetable supplier — Maharashtra</div></div>
+                    <div class="pd-right">Contact: <a href="mailto:green@farms.example">green@farms.example</a></div>
+                  </div>
+                  <div class="partner-detail-item">
+                    <div class="pd-left"><strong>Harvest Co.</strong><div class="pd-sub">Fruits & orchard produce — Punjab</div></div>
+                    <div class="pd-right">Contact: <a href="mailto:harvest@example">harvest@example</a></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- How it works / Other app-like details -->
+              <div class="about-container how-it-works">
+                <h3 class="section-title">How It Works</h3>
+                <div class="how-steps">
+                  <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-body"><strong>Choose</strong><p>Select fresh products from curated farms.</p></div>
+                  </div>
+                  <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-body"><strong>Order</strong><p>Place your order with flexible delivery slots.</p></div>
+                  </div>
+                  <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-body"><strong>Deliver</strong><p>Track and receive farm-fresh goods at your doorstep.</p></div>
+                  </div>
+                </div>
+
+                <h4 class="section-subtitle">Why choose Grain's Mart over other apps?</h4>
+                <div class="feature-cards">
+                  <div class="feature-card"><strong>Farm-to-Table</strong><p>Short supply chain — fresher produce.</p></div>
+                  <div class="feature-card"><strong>Fair Pricing</strong><p>Transparent pricing model that supports farmers.</p></div>
+                  <div class="feature-card"><strong>Quality Checks</strong><p>Multi-stage quality checks before dispatch.</p></div>
+                </div>
               </div>
             </div>
             

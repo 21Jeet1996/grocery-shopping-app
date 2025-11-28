@@ -1,0 +1,189 @@
+    <section id="payment" style="display:none;">
+      <div class="payment-page">
+        <!-- Payment Header -->
+        <div class="payment-page-header">
+          <button class="back-to-cart-btn" onclick="backToCart()">
+            ← Back to Cart
+          </button>
+          <h2>Checkout</h2>
+        </div>
+
+        <div class="payment-page-layout">
+          <!-- Left: Payment Methods -->
+          <div class="payment-methods-section">
+            <h3>Select Payment Method</h3>
+            
+            <!-- UPI Section -->
+            <div class="payment-method-group">
+              <div class="payment-method-header" onclick="togglePaymentMethod('upi')">
+                <div class="method-info">
+                  <span class="method-icon">📱</span>
+                  <div>
+                    <strong>UPI</strong>
+                    <p>Pay with UPI apps (PhonePe, GPay, Paytm)</p>
+                  </div>
+                </div>
+                <span class="expand-icon" id="upi-expand">+</span>
+              </div>
+              <div class="payment-method-content" id="upi-content">
+                <input type="text" id="checkoutUpiId" placeholder="Enter UPI ID (e.g., yourupi@paytm)" class="checkout-input">
+                <button class="checkout-pay-btn" onclick="processCheckoutUPI()">Pay via UPI</button>
+              </div>
+            </div>
+
+            <!-- Card Section -->
+            <div class="payment-method-group">
+              <div class="payment-method-header" onclick="togglePaymentMethod('card')">
+                <div class="method-info">
+                  <span class="method-icon">💳</span>
+                  <div>
+                    <strong>Credit/Debit Card</strong>
+                    <p>Visa, Mastercard, Rupay</p>
+                  </div>
+                </div>
+                <span class="expand-icon" id="card-expand">+</span>
+              </div>
+              <div class="payment-method-content" id="card-content">
+                <input type="text" id="checkoutCardNumber" placeholder="Card Number" maxlength="19" class="checkout-input">
+                <div class="card-row">
+                  <input type="text" id="checkoutCardExpiry" placeholder="MM/YY" maxlength="5" class="checkout-input half">
+                  <input type="text" id="checkoutCardCvv" placeholder="CVV" maxlength="3" class="checkout-input half">
+                </div>
+                <input type="text" id="checkoutCardName" placeholder="Cardholder Name" class="checkout-input">
+                <button class="checkout-pay-btn" onclick="processCheckoutCard()">Pay with Card</button>
+              </div>
+            </div>
+
+            <!-- Net Banking Section -->
+            <div class="payment-method-group">
+              <div class="payment-method-header" onclick="togglePaymentMethod('netbanking')">
+                <div class="method-info">
+                  <span class="method-icon">🏦</span>
+                  <div>
+                    <strong>Net Banking</strong>
+                    <p>Pay from your bank account</p>
+                  </div>
+                </div>
+                <span class="expand-icon" id="netbanking-expand">+</span>
+              </div>
+              <div class="payment-method-content" id="netbanking-content">
+                <select id="checkoutBankSelect" class="checkout-input">
+                  <option value="">Choose your bank</option>
+                  <option value="sbi">State Bank of India</option>
+                  <option value="hdfc">HDFC Bank</option>
+                  <option value="icici">ICICI Bank</option>
+                  <option value="pnb">Punjab National Bank</option>
+                  <option value="axis">Axis Bank</option>
+                  <option value="kotak">Kotak Mahindra Bank</option>
+                </select>
+                <button class="checkout-pay-btn" onclick="processCheckoutNetBanking()">Pay via Net Banking</button>
+              </div>
+            </div>
+
+            <!-- Wallet Section -->
+            <div class="payment-method-group">
+              <div class="payment-method-header" onclick="togglePaymentMethod('wallet')">
+                <div class="method-info">
+                  <span class="method-icon">👛</span>
+                  <div>
+                    <strong>Wallets</strong>
+                    <p>Paytm, Amazon Pay, PhonePe</p>
+                  </div>
+                </div>
+                <span class="expand-icon" id="wallet-expand">+</span>
+              </div>
+              <div class="payment-method-content" id="wallet-content">
+                <div class="wallet-grid">
+                  <div class="wallet-item" onclick="selectCheckoutWallet('internal', this)">
+                    <span>👛</span>
+                    <span>My Wallet</span>
+                  </div>
+                  <div class="wallet-item" onclick="selectCheckoutWallet('paytm', this)">
+                    <span>💰</span>
+                    <span>Paytm</span>
+                  </div>
+                  <div class="wallet-item" onclick="selectCheckoutWallet('phonepe', this)">
+                    <span>📲</span>
+                    <span>PhonePe</span>
+                  </div>
+                  <div class="wallet-item" onclick="selectCheckoutWallet('amazon', this)">
+                    <span>🛒</span>
+                    <span>Amazon Pay</span>
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin:8px 0 12px; font-size:14px; color:#475569;">
+                  <span>Wallet Balance</span>
+                  <span style="font-weight:700; color:#1e293b;">₹<span id="checkoutWalletBalance">0.00</span></span>
+                </div>
+                <button class="checkout-pay-btn" id="walletPayBtn" onclick="processCheckoutWallet()" style="display:none;">Pay with Wallet</button>
+              </div>
+            </div>
+
+            <!-- Cash on Delivery -->
+            <div class="payment-method-group">
+              <div class="payment-method-header" onclick="togglePaymentMethod('cod')">
+                <div class="method-info">
+                  <span class="method-icon">💵</span>
+                  <div>
+                    <strong>Cash on Delivery</strong>
+                    <p>Pay when you receive your order</p>
+                  </div>
+                </div>
+                <span class="expand-icon" id="cod-expand">+</span>
+              </div>
+              <div class="payment-method-content" id="cod-content">
+                <div class="cod-info-box">
+                  <p>✓ Pay when your order arrives</p>
+                  <p>✓ Keep exact change ready</p>
+                  <p>✓ Inspect items before paying</p>
+                </div>
+                <button class="checkout-pay-btn cod-btn" onclick="processCheckoutCOD()">Place Order (COD)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Order Summary -->
+          <div class="order-summary-section">
+            <div class="order-summary-card">
+              <h3>Order Summary</h3>
+              <div class="order-items-list" id="checkoutItemsList">
+                <!-- Items will be populated here -->
+              </div>
+              <div class="order-totals">
+                <div class="total-row">
+                  <span>Subtotal</span>
+                  <span id="checkoutSubtotal">₹0.00</span>
+                </div>
+                <div class="total-row">
+                  <span>Delivery Fee</span>
+                  <span class="free-delivery">FREE</span>
+                </div>
+                <div class="total-row discount-row" id="checkoutDiscountRow" style="display:none;">
+                  <span>Discount</span>
+                  <span id="checkoutDiscount" class="discount-amount">-₹0.00</span>
+                </div>
+                <div class="total-row grand-total">
+                  <span>Total</span>
+                  <span id="checkoutTotal">₹0.00</span>
+                </div>
+              </div>
+              
+              <!-- Delivery Address -->
+              <div class="delivery-address-box">
+                <div class="address-header">
+                  <span>📍 Delivery Address</span>
+                  <button class="change-address-btn" onclick="changeDeliveryAddress()">Change</button>
+                </div>
+                <p id="checkoutAddress">Please add a delivery address</p>
+              </div>
+            </div>
+            
+            <!-- Security Badge -->
+            <div class="security-badge">
+              <span>🔒</span>
+              <span>100% Secure Payments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

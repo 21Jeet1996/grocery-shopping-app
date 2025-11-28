@@ -27,6 +27,7 @@ async function loadAllComponents() {
     { id: 'products-component', file: 'sections/products.html' },
     { id: 'product-detail-component', file: 'sections/product-detail.html' },
     { id: 'cart-component', file: 'sections/cart.html' },
+    { id: 'payment-component', file: 'sections/payment.html' },
     { id: 'profile-component', file: 'sections/profile.html' },
     { id: 'track-order-component', file: 'sections/track-order.html' },
     { id: 'address-component', file: 'sections/address.html' },

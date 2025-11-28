@@ -12,5 +12,7 @@
 @import "modals.css";
 @import "chatbot.css";
 @import "footer.css";
+@import "filters.css";
+@import "payment-page.css";
 
 /* Any remaining overrides or page-specific styles can go here */

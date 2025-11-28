@@ -101,7 +101,7 @@ function openProfilePage(pageName) {
       'payment': 'Payment Methods',
       'account': 'Account Details',
       'support': 'Support & Help',
-      'about': 'Rate & Review'
+      'about': "About Grain's Mart"
     };
     
     const titleEl = document.getElementById('subPageTitle');
@@ -113,10 +113,10 @@ function openProfilePage(pageName) {
     // Load specific data
     if (pageName === 'currentOrders') loadCurrentOrders();
     else if (pageName === 'orderHistory') loadOrderHistory();
-    else if (pageName === 'wallet') loadWalletData();
+    else if (pageName === 'wallet') loadPaymentsHub();
     else if (pageName === 'addresses') loadAddresses();
     else if (pageName === 'account') renderAccountDetails();
-    else if (pageName === 'payment') loadPaymentMethods();
+    else if (pageName === 'payment') loadPaymentsHub();
     else if (pageName === 'support') loadSupport();
     else if (pageName === 'track') loadTrackOrderTab();
   }
@@ -406,6 +406,95 @@ function loadPaymentMethods() {
       </div>
     </div>
   `;
+}
+
+function loadPaymentsHub() {
+  const currentUser = localStorage.getItem('currentUser');
+  const walletBalance = parseFloat(localStorage.getItem(`walletBalance_${currentUser}`) || '0');
+  const transactions = JSON.parse(localStorage.getItem(`walletTransactions_${currentUser}`) || '[]');
+
+  const savedCards = [
+    { last4: '4242', brand: 'Visa', expiry: '12/25', holder: 'John Doe' }
+  ];
+
+  const txHtml = transactions.length === 0 
+    ? '<p class="empty-state">No transactions yet.</p>' 
+    : `<div class="tx-list">
+        ${transactions.map(trans => `
+          <div class="tx-item">
+            <div style="display:flex; align-items:center;">
+              <div class="tx-icon" style="background:${trans.type === 'credit' ? '#e6fffa' : '#fff5f5'}; color:${trans.type === 'credit' ? '#00b894' : '#d63031'}">
+                ${trans.type === 'credit' ? '↓' : '↑'}
+              </div>
+              <div class="tx-info">
+                <h5>${trans.description}</h5>
+                <p>${new Date(trans.date).toLocaleDateString()}</p>
+              </div>
+            </div>
+            <span class="tx-amount ${trans.type === 'credit' ? 'credit' : 'debit'}">
+              ${trans.type === 'credit' ? '+' : '-'}₹${trans.amount.toFixed(2)}
+            </span>
+          </div>
+        `).join('')}
+      </div>`;
+
+  const combinedHTML = `
+    <div class="wallet-layout">
+      <div class="wallet-balance-card">
+        <div class="wallet-balance">
+          <span class="wallet-label">Available Balance</span>
+          <span class="wallet-amount">₹<span id="walletBalance">${walletBalance.toFixed(2)}</span></span>
+        </div>
+        <button class="add-money-btn" onclick="showAddMoneyForm()">+ Add Money</button>
+      </div>
+
+      <h4 style="margin: 20px 0 15px 0; color:#333;">Saved Cards</h4>
+      <div class="saved-cards-container">
+        ${savedCards.map(card => `
+          <div class="credit-card-visual">
+            <div class="card-chip"></div>
+            <div class="card-number-display">**** **** **** ${card.last4}</div>
+            <div class="card-meta">
+              <div>
+                <div class="card-holder-name">${card.holder}</div>
+                <div class="card-expiry">EXP: ${card.expiry}</div>
+              </div>
+              <div class="card-brand-logo">${card.brand}</div>
+            </div>
+          </div>
+        `).join('')}
+        <div class="credit-card-visual" style="background: #f8f9fa; color: #2d3436; align-items:center; justify-content:center; border: 2px dashed #ccc; cursor:pointer;" onclick="showAddPaymentForm()">
+          <div style="font-size:40px; color:#ccc;">+</div>
+          <div style="font-weight:600;">Add New Card</div>
+        </div>
+      </div>
+
+      <h4 style="margin: 20px 0 15px 0; color:#333;">UPI Accounts</h4>
+      <div class="upi-list">
+        <div class="payment-upi-item">
+          <div class="upi-logo">UPI</div>
+          <div style="flex:1;">
+            <div style="font-weight:600;">user@oksbi</div>
+            <div style="font-size:12px; color:#666;">Google Pay</div>
+          </div>
+          <button class="delete-btn" style="background:none; border:none; color:#ef4444; cursor:pointer;">Remove</button>
+        </div>
+        <div class="payment-upi-item" style="justify-content:center; cursor:pointer; border:1px dashed #ccc;" onclick="showAddPaymentForm()">
+          <span style="color:#4f46e5; font-weight:600;">+ Add New UPI ID</span>
+        </div>
+      </div>
+
+      <h4 style="margin: 20px 0 15px 0; color:#333;">Transaction History</h4>
+      ${txHtml}
+    </div>
+  `;
+
+  const paymentTab = document.getElementById('profilePaymentTab');
+  const walletTab = document.getElementById('profileWalletTab');
+  if (paymentTab) paymentTab.innerHTML = combinedHTML;
+  if (walletTab) walletTab.innerHTML = combinedHTML;
+
+  try { updateProfileStats(); } catch(e) {}
 }
 
 function loadTrackOrderTab() {

@@ -38,7 +38,11 @@ async function initApp() {
   initDeliverTo();
   updateProfileUI();
   
-  // 5. Setup Navigation (SPA Logic)
+  // 5. Initialize Voice Search & Filters
+  if (typeof initVoiceSearch === 'function') initVoiceSearch();
+  if (typeof initFilters === 'function') initFilters();
+  
+  // 6. Setup Navigation (SPA Logic)
   const sections = document.querySelectorAll("main section");
   const navLinks = document.querySelectorAll("nav a");
 

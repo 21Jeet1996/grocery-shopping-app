@@ -90,6 +90,17 @@
   <!-- ✅ Toast Notification -->
   <div id="toast" class="toast"></div>
 
+  <!-- Voice Search Listening Overlay -->
+  <div id="voiceListeningOverlay" class="voice-listening-overlay">
+    <div class="voice-listening-content">
+      <div class="voice-mic-animation">🎤</div>
+      <h3>Listening...</h3>
+      <p>Speak the product name you're looking for</p>
+      <div class="voice-transcript" id="voiceTranscript">Listening...</div>
+      <button class="voice-cancel-btn" onclick="stopVoiceSearch()">Cancel</button>
+    </div>
+  </div>
+
   <!-- ✅ Payment Options Modal -->
   <div id="paymentOptionsModal" class="modal">
     <div class="modal-content payment-modal">

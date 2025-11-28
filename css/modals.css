@@ -4,23 +4,37 @@
 .modal {
   display: none;
   position: fixed;
-  z-index: 2000; /* High z-index to sit above everything */
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(15, 23, 42, 0.6); /* Dark slate overlay */
-  backdrop-filter: blur(8px); /* Stronger blur for focus */
-  animation: fadeInModal 0.2s ease-out;
+  z-index: 2000;
+  left: 0; 
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes fadeInModal {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .modal.show {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  animation: fadeInModal 0.3s ease-out;
+}
+
+.modal.show .modal-content,
+.modal.show .login-modal-card {
+  margin: 0 auto;
+  position: relative;
+  left: auto;
+  right: auto;
+  top: auto;
+  transform: none;
 }
 
 /* --- Modern Login Card --- */

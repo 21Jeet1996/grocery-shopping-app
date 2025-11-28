@@ -5,14 +5,14 @@
 function openLoginModal() {
   const modal = document.getElementById('loginModal');
   if (modal) {
-    modal.style.display = 'block';
+    modal.classList.add('show');
     switchTab('login');
   }
 }
 
 function closeLoginModal() {
   const modal = document.getElementById('loginModal');
-  if (modal) modal.style.display = 'none';
+  if (modal) modal.classList.remove('show');
 }
 
 function switchTab(tab) {
@@ -169,7 +169,7 @@ function logout() {
 }
 
 window.addEventListener('click', function(event) {
-  const modal = $('#loginModal');
+  const modal = document.getElementById('loginModal');
   if (event.target === modal) {
     closeLoginModal();
   }
